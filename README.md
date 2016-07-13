@@ -5,7 +5,7 @@
 [![Test Coverage](https://codeclimate.com/github/ubcsanskrit/sanscript.rb/badges/coverage.svg)](https://codeclimate.com/github/ubcsanskrit/sanscript.rb/coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/ubcsanskrit/sanscript.rb.svg)](https://gemnasium.com/github.com/ubcsanskrit/sanscript.rb)
 
-This gem is starting off as a mostly-straightforward port of [learnsanskrit.org's Sanscript.js](https://github.com/sanskrit/sanscript.js), and will go from there. It also incorporates transliteration scheme detection based on learnsanskrit.org's Detect.js](https://github.com/sanskrit/detect.js).
+This gem is starting off as a mostly-straightforward port of [learnsanskrit.org's Sanscript.js](https://github.com/sanskrit/sanscript.js), and will go from there. It also incorporates transliteration scheme detection based on [learnsanskrit.org's Detect.js](https://github.com/sanskrit/detect.js).
 
 ## Installation
 
