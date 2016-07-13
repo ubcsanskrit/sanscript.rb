@@ -2,6 +2,7 @@
 require "sanscript/version"
 require "sanscript/refinements"
 require "sanscript/schemes"
+require "sanscript/detect"
 
 #
 # Sanscript
@@ -139,6 +140,11 @@ module Sanscript
       transliterate_brahmic(data, map)
     end
   end
+
+  def detect(text)
+    Detect.detect_script(text)
+  end
+  alias detect_script detect
 
   class << self
     attr_reader :defaults, :schemes, :roman_schemes, :all_alternates
