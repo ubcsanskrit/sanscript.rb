@@ -1,0 +1,97 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+# Metrics
+Metrics/AbcSize:
+  Description: >-
+                 A calculated magnitude based on number of assignments,
+                 branches, and conditions.
+  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
+  Enabled: false
+  Max: 20
+
+Metrics/BlockNesting:
+  Description: 'Avoid excessive block nesting'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#three-is-the-number-thou-shalt-count'
+  Enabled: true
+  Max: 4
+
+Metrics/ClassLength:
+  Description: 'Avoid classes longer than 250 lines of code.'
+  Enabled: true
+  Max: 250
+
+Metrics/CyclomaticComplexity:
+  Description: >-
+                 A complexity metric that is strongly correlated to the number
+                 of test cases needed to validate a method.
+  Enabled: true
+
+Metrics/LineLength:
+  Description: 'Limit lines to 80 characters.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
+  Enabled: false
+
+Metrics/MethodLength:
+  Description: 'Avoid methods longer than 30 lines of code.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
+  Enabled: true
+  Max: 30
+
+Metrics/ModuleLength:
+  Description: 'Avoid modules longer than 250 lines of code.'
+  Enabled: true
+  Max: 250
+
+Metrics/ParameterLists:
+  Description: 'Avoid parameter lists longer than three or four parameters.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#too-many-params'
+  Enabled: true
+
+Metrics/PerceivedComplexity:
+  Description: >-
+                 A complexity metric geared towards measuring complexity for a
+                 human reader.
+  Enabled: false
+
+# Style
+Style/AsciiComments:
+  Enabled: false
+
+Style/CollectionMethods:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyLiteral:
+  Enabled: false
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': '[]'
+    '%I': '[]'
+    '%w': '[]'
+    '%W': '[]'
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrivialAccessors:
+  ExactNameMatch: true
+  AllowPredicates: true
