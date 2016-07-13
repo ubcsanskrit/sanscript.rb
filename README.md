@@ -5,7 +5,7 @@
 [![Test Coverage](https://codeclimate.com/github/ubcsanskrit/sanscript.rb/badges/coverage.svg)](https://codeclimate.com/github/ubcsanskrit/sanscript.rb/coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/ubcsanskrit/sanscript.rb.svg)](https://gemnasium.com/github.com/ubcsanskrit/sanscript.rb)
 
-This gem is starting off as a mostly-straightforward port of [learnsanskrit.org's Sanscript.js](https://github.com/sanskrit/sanscript.js), and will go from there
+This gem is starting off as a mostly-straightforward port of [learnsanskrit.org's Sanscript.js](https://github.com/sanskrit/sanscript.js), and will go from there. It also incorporates transliteration scheme detection based on learnsanskrit.org's Detect.js](https://github.com/sanskrit/detect.js).
 
 ## Installation
 
@@ -25,7 +25,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You can access detection through `Sanscript.detect(text)` and transliteration through `Sanscript.transliterate(text, from, to)`. Code should be fairly straightforward and partially documented.
 
 ## Development
 
@@ -35,7 +35,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sanscript. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ubcsanskrit/sanscript. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
