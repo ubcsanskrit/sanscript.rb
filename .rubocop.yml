@@ -34,10 +34,9 @@ Metrics/LineLength:
   Enabled: false
 
 Metrics/MethodLength:
-  Description: 'Avoid methods longer than 30 lines of code.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
+  Description: 'Avoid methods longer than 40 lines of code.'
   Enabled: true
-  Max: 30
+  Max: 40
 
 Metrics/ModuleLength:
   Description: 'Avoid modules longer than 250 lines of code.'
