@@ -134,7 +134,7 @@ module Sanscript
 
       data = data.to_str.dup
       options = @defaults.merge(options)
-      map = @cache[:"#{from}_#{to}"] ||= make_map(from, to)
+      map = make_map(from, to)
 
       data.gsub!(/(<.*?>)/, "##\\1##") if options[:skip_sgml]
 
@@ -163,48 +163,50 @@ module Sanscript
       # @param to       output scheme
       #
       def make_map(from, to)
-        alternates = @all_alternates[from] || {}
-        consonants = {}
-        from_scheme = @schemes[from]
-        letters = {}
-        token_lengths = []
-        marks = {}
-        to_scheme = @schemes[to]
+        @cache[:"#{from}_#{to}"] ||= begin
+          alternates = @all_alternates[from] || {}
+          consonants = {}
+          from_scheme = @schemes[from]
+          letters = {}
+          token_lengths = []
+          marks = {}
+          to_scheme = @schemes[to]
 
-        from_scheme.each do |group, from_group|
-          to_group = to_scheme[group]
-          next if to_group.nil?
+          from_scheme.each do |group, from_group|
+            to_group = to_scheme[group]
+            next if to_group.nil?
 
-          from_group.each_with_index do |f, i|
-            t = to_group[i]
-            alts = alternates[f] || []
-            token_lengths.push(f.length)
-            token_lengths.concat(alts.map(&:length))
+            from_group.each_with_index do |f, i|
+              t = to_group[i]
+              alts = alternates[f] || []
+              token_lengths.push(f.length)
+              token_lengths.concat(alts.map(&:length))
 
-            if group == :vowel_marks || group == :virama
-              marks[f] = t
-              alts.each { |alt| marks[alt] = t }
-            else
-              letters[f] = t
-              alts.each { |alt| letters[alt] = t }
+              if group == :vowel_marks || group == :virama
+                marks[f] = t
+                alts.each { |alt| marks[alt] = t }
+              else
+                letters[f] = t
+                alts.each { |alt| letters[alt] = t }
 
-              if group == :consonants || group == :other
-                consonants[f] = t
-                alts.each { |alt| consonants[alt] = t }
+                if group == :consonants || group == :other
+                  consonants[f] = t
+                  alts.each { |alt| consonants[alt] = t }
+                end
               end
             end
           end
-        end
 
-        {
-          consonants: consonants,
-          from_roman?: roman_scheme?(from),
-          letters: letters,
-          marks: marks,
-          max_token_length: token_lengths.max,
-          to_roman?: roman_scheme?(to),
-          virama: to_scheme[:virama].first,
-        }.deep_freeze
+          {
+            consonants: consonants,
+            from_roman?: roman_scheme?(from),
+            letters: letters,
+            marks: marks,
+            max_token_length: token_lengths.max,
+            to_roman?: roman_scheme?(to),
+            virama: to_scheme[:virama].first,
+          }.deep_freeze
+        end
       end
 
       #
@@ -218,7 +220,7 @@ module Sanscript
       def transliterate_roman(data, map, options = {})
         options = @defaults.merge(options)
         data = data.to_str.dup
-        buf = String.new
+        buf = []
         token_buffer = String.new
         had_consonant = false
         transliteration_enabled = true
@@ -270,7 +272,7 @@ module Sanscript
           end
         end
         buf << map[:virama] if had_consonant && !options[:syncope]
-        buf
+        buf.join("")
       end
 
       #
@@ -282,7 +284,7 @@ module Sanscript
       #
       def transliterate_brahmic(data, map)
         data = data.to_str.dup
-        buf = String.new
+        buf = []
         dangling_hash = false
         had_roman_consonant = false
         transliteration_enabled = true
@@ -334,7 +336,7 @@ module Sanscript
         end
 
         buf << "a" if had_roman_consonant
-        buf
+        buf.join("")
       end
     end
   end

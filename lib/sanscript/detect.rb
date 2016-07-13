@@ -6,7 +6,7 @@ module Sanscript
   module Detect
     # Match any character in the block of Brahmic scripts
     # between Devanagari and Malayalam.
-    RE_BRAHMIC_RANGE = /[\u0090-\u0d7f]/
+    RE_BRAHMIC_RANGE = /[\u0900-\u0d7f]/
 
     # Match each individual Brahmic script.
     RE_BRAHMIC_SCRIPTS = {

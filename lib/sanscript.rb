@@ -2,6 +2,7 @@
 require "sanscript/version"
 require "sanscript/detect"
 require "sanscript/transliterate"
+require "sanscript/benchmark"
 
 module Sanscript
   module_function
@@ -21,7 +22,7 @@ module Sanscript
   def transliterate(text, first, second = nil, **options)
     if second.nil?
       second = first
-      first = Detect.detect_script(data)
+      first = Detect.detect_script(text)
     end
     Transliterate.transliterate(text, first, second, options)
   end
