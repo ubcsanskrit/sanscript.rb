@@ -275,8 +275,14 @@ module Sanscript
       },
     }
 
-    # Set of names of schemes
+    # Set of names of Roman schemes
     @roman_schemes = Set.new
+
+    # Set of names of Brahmic schemes
+    @brahmic_schemes = Set.new
+
+    # Set of names of all schemes
+    @scheme_names = Set.new
 
     # Map of alternate encodings.
     @all_alternates = {
