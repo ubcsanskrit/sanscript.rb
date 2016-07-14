@@ -14,7 +14,8 @@ module Sanscript
   using Refinements
   module Transliterate
     class << self
-      attr_reader :defaults, :schemes, :roman_schemes, :all_alternates
+      attr_reader :defaults, :schemes, :scheme_names, :brahmic_schemes, :roman_schemes,
+                  :all_alternates
     end
 
     @defaults = {
@@ -27,12 +28,13 @@ module Sanscript
     module_function
 
     #
-    #  Return a list of available schemes.
+    #  Check whether the given scheme encodes Brahmic Sanskrit.
     #
-    #  @return      array of scheme identifiers
+    #  @param name  the scheme name
+    #  @return      boolean
     #
-    def scheme_names
-      @schemes.keys.sort!
+    def brahmic_scheme?(name)
+      @brahmic_schemes.include?(name.to_sym)
     end
 
     #
@@ -64,7 +66,12 @@ module Sanscript
     #                described above.
     #
     def add_brahmic_scheme(name, scheme)
-      @schemes[name.to_sym] = scheme.deep_dup.deep_freeze
+      name = name.to_sym
+      scheme = scheme.deep_dup
+      @schemes[name] = scheme.deep_freeze
+      @brahmic_schemes.add(name)
+      @scheme_names.add(name)
+      scheme
     end
 
     #
@@ -82,6 +89,8 @@ module Sanscript
       scheme[:vowel_marks] = scheme[:vowels][1..-1] unless scheme.key?(:vowel_marks)
       @schemes[name] = scheme.deep_freeze
       @roman_schemes.add(name)
+      @scheme_names.add(name)
+      scheme
     end
 
     #
@@ -93,15 +102,23 @@ module Sanscript
 
     # Set up various schemes
     begin
+      # Re-add existing Brahmic schemes in order to add them to `scheme_names`
+      # and to freeze them up.
+      brahmic_scheme_names = %i[bengali devanagari gujarati gurmukhi kannada malayalam
+                                oriya tamil telugu]
+      brahmic_scheme_names.each do |name|
+        add_brahmic_scheme(name, @schemes[name])
+      end
+
       # Set up roman schemes
       kolkata = @schemes[:kolkata] = @schemes[:iast].deep_dup
-      scheme_names = %i[iast itrans hk kolkata slp1 velthuis wx]
+      roman_scheme_names = %i[iast itrans hk kolkata slp1 velthuis wx]
       kolkata[:vowels] = %w[a ā i ī u ū ṛ ṝ ḷ ḹ e ē ai o ō au]
 
       # These schemes already belong to Sanscript.schemes. But by adding
-      # them again with `addRomanScheme`, we automatically build up
+      # them again with `add_roman_scheme`, we automatically build up
       # `roman_schemes` and define a `vowel_marks` field for each one.
-      scheme_names.each do |name|
+      roman_scheme_names.each do |name|
         add_roman_scheme(name, @schemes[name])
       end
 
@@ -112,8 +129,7 @@ module Sanscript
       @all_alternates[:itrans_dravidian] = @all_alternates[:itrans]
       add_roman_scheme(:itrans_dravidian, itrans_dravidian)
 
-      # ensure deep freeze on all existing schemes and alternates
-      @schemes.each { |_, scheme| scheme.deep_freeze }
+      # ensure deep freeze on alternates
       @all_alternates.each { |_, scheme| scheme.deep_freeze }
     end
 
