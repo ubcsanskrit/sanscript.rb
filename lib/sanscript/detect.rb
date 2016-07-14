@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# rubocop:disable Style/CaseEquality
+
 #
 # Developed from code available @ https://github.com/sanskrit/detect.js
 #
@@ -31,7 +33,7 @@ module Sanscript
     RE_ITRANS_ONLY = /ee|oo|\^[iI]|RR[iI]|L[iI]|~N|N\^|Ch|chh|JN|sh|Sh|\.a/
 
     # Match on SLP1-only characters and bigrams
-    RE_SLP1_ONLY = /[fFxXEOCYwWqQPB]|kz|Nk|Ng|tT|dD|Sc|Sn|[aAiIuUfFxXeEoO]R|G[yr]|(\\W|^)G'/
+    RE_SLP1_ONLY = /[fFxXEOCYwWqQPB]|kz|N[kg]|tT|dD|S[cn]|[aAiIuUeo]R|G[yr]/
 
     # Match on Velthuis-only characters
     RE_VELTHUIS_ONLY = /\.[mhnrlntds]|"n|~s/
@@ -39,7 +41,7 @@ module Sanscript
     # Match on chars shared by ITRANS and Velthuis
     RE_ITRANS_OR_VELTHUIS_ONLY = /aa|ii|uu|~n/
 
-    # Match on characters unavailable in Harvard-Kyoto
+    # Match on characters available in Harvard-Kyoto
     RE_HARVARD_KYOTO = /[aAiIuUeoRMHkgGcjJTDNtdnpbmyrlvzSsh]/
 
     private_constant :RE_BRAHMIC_RANGE, :RE_BRAHMIC_SCRIPTS, :RE_IAST_OR_KOLKATA_ONLY,
@@ -50,24 +52,25 @@ module Sanscript
 
     def detect_script(text)
       # Brahmic schemes are all within a specific range of code points.
-      if text =~ RE_BRAHMIC_RANGE
+      if RE_BRAHMIC_RANGE === text
         RE_BRAHMIC_SCRIPTS.each do |script, regex|
-          return script if text =~ regex
+          return script if regex === text
         end
       end
 
       # Romanizations
-      if text =~ RE_IAST_OR_KOLKATA_ONLY
-        text =~ RE_KOLKATA_ONLY ? :kolkata : :iast
-      elsif text =~ RE_ITRANS_ONLY
+      if RE_IAST_OR_KOLKATA_ONLY === text
+        return :kolkata if RE_KOLKATA_ONLY === text
+        :iast
+      elsif RE_ITRANS_ONLY === text
         :itrans
-      elsif text =~ RE_SLP1_ONLY
+      elsif RE_SLP1_ONLY === text
         :slp1
-      elsif text =~ RE_VELTHUIS_ONLY
+      elsif RE_VELTHUIS_ONLY === text
         :velthuis
-      elsif text =~ RE_ITRANS_OR_VELTHUIS_ONLY
+      elsif RE_ITRANS_OR_VELTHUIS_ONLY === text
         :itrans
-      elsif text =~ RE_HARVARD_KYOTO
+      elsif RE_HARVARD_KYOTO === text
         :hk
       else
         :unknown
