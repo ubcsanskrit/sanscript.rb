@@ -317,26 +317,32 @@ module Sanscript
       def transliterate_brahmic(data, map)
         data = data.to_str.dup
         buf = []
-        dangling_hash = false
         had_roman_consonant = false
         transliteration_enabled = true
+        control_char = false
 
         until data.empty?
-          l = data.slice!(0, 1)
-          # Toggle transliteration state
-          if l == "#"
-            if dangling_hash
-              transliteration_enabled = !transliteration_enabled
-              dangling_hash = false
-            else
-              dangling_hash = true
-            end
-            if had_roman_consonant
-              buf << "a"
-              had_roman_consonant = false
-            end
+          token = data.slice(0, 2)
+          if !control_char && token == "##"
+            transliteration_enabled = !transliteration_enabled
+            data.slice!(0, 2)
             next
-          elsif !transliteration_enabled
+          elsif control_char && token == "#}"
+            transliteration_enabled = true
+            control_char = false
+            buf << token
+            data.slice!(0, 2)
+            next
+          elsif transliteration_enabled && token == "{#"
+            transliteration_enabled = false
+            control_char = true
+            buf << token
+            data.slice!(0, 2)
+            next
+          end
+
+          l = data.slice!(0, 1)
+          unless transliteration_enabled
             buf << l
             next
           end
@@ -346,10 +352,6 @@ module Sanscript
             buf << temp
             had_roman_consonant = false
           else
-            if dangling_hash
-              buf << "#"
-              dangling_hash = false
-            end
             if had_roman_consonant
               buf << "a"
               had_roman_consonant = false
