@@ -243,6 +243,7 @@ module Sanscript
         token_buffer = String.new
         had_consonant = false
         transliteration_enabled = true
+        control_char = false
 
         until data.empty? && token_buffer.empty?
           token_buffer << data.slice!(0, map[:max_token_length] - token_buffer.length)
@@ -251,8 +252,20 @@ module Sanscript
           (0...map[:max_token_length]).each do |j|
             token = token_buffer[0, map[:max_token_length] - j]
 
-            if token == "##"
+            if !control_char && token == "##"
               transliteration_enabled = !transliteration_enabled
+              token_buffer.slice!(0, 2)
+              break
+            elsif control_char && token == "#}"
+              transliteration_enabled = true
+              control_char = false
+              buf << token
+              token_buffer.slice!(0, 2)
+              break
+            elsif transliteration_enabled && token == "{#"
+              transliteration_enabled = false
+              control_char = true
+              buf << token
               token_buffer.slice!(0, 2)
               break
             end
