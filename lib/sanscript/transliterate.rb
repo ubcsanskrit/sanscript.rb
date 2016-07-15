@@ -122,6 +122,9 @@ module Sanscript
         add_roman_scheme(name, @schemes[name])
       end
 
+      # Add Kyoto-Harvard copy (alternate name of Harvard-Kyoto scheme)/
+      add_roman_scheme(:kh, @schemes[:hk])
+
       # ITRANS variant, which supports Dravidian short 'e' and 'o'.
       itrans_dravidian = @schemes[:itrans].deep_dup
       itrans_dravidian[:vowels] = %w[a A i I u U Ri RRI LLi LLi e E ai o O au]
