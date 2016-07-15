@@ -51,6 +51,8 @@ module Sanscript
     module_function
 
     def detect_script(text)
+      text = text.to_str.gsub(/\\(.)|##.*?(?<!\\)##/, "\\1")
+
       # Brahmic schemes are all within a specific range of code points.
       if RE_BRAHMIC_RANGE === text
         RE_BRAHMIC_SCRIPTS.each do |script, regex|
