@@ -192,7 +192,7 @@ module Sanscript
         other_marks: ["ṃ", "ḥ", "~"],
         virama: [""],
         consonants: "k kh g gh ṅ c ch j jh ñ ṭ ṭh ḍ ḍh ṇ t th d dh n p ph b bh m y r l v ś ṣ s h ḻ kṣ jñ".w_split,
-        symbols: "0 1 2 3 4 5 6 7 8 9 oṃ ' । ॥".w_split,
+        symbols: "0 1 2 3 4 5 6 7 8 9 oṃ ' | ||".w_split,
       },
 
       # ITRANS
@@ -247,7 +247,7 @@ module Sanscript
         other_marks: "M H ~".w_split,
         virama: [""],
         consonants: "k K g G N c C j J Y w W q Q R t T d D n p P b B m y r l v S z s h L kz jY".w_split,
-        symbols: "0 1 2 3 4 5 6 7 8 9 oM ' . ..".w_split,
+        symbols: "0 1 2 3 4 5 6 7 8 9 oM ' | ||".w_split,
       },
 
       # Velthuis
