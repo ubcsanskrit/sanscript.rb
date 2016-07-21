@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-# rubocop:disable Style/CaseEquality
 
-#
-# Developed from code available @ https://github.com/sanskrit/detect.js
-#
 module Sanscript
+  # Transliteration scheme detection module.
+  # Developed from code available @ https://github.com/sanskrit/detect.js
   module Detect
+    # rubocop:disable Style/CaseEquality
+
     # Match any character in the block of Brahmic scripts
     # between Devanagari and Malayalam.
     RE_BRAHMIC_RANGE = /[\u0900-\u0d7f]/
@@ -53,7 +53,11 @@ module Sanscript
 
     module_function
 
-    def detect_script(text)
+    # Attempts to detect the encoding scheme of the provided string.
+    #
+    # @param text [String] a string of Sanskrit text
+    # @return [Symbol, nil] the Symbol of the scheme, or nil if no match
+    def detect_scheme(text)
       text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
 
       # Brahmic schemes are all within a specific range of code points.
@@ -77,14 +81,13 @@ module Sanscript
         :itrans
       elsif RE_HARVARD_KYOTO === text
         :hk
-      else
-        :unknown
       end
     end
 
-    # If Ruby 2.4's Regexp#match? method is found, use it for performance
+    # If Ruby 2.4's Regexp#match? method is found, use this version of detect_scheme
     if Regexp.method_defined?(:match?)
-      def detect_script(text)
+      # @!visibility private
+      def detect_scheme(text)
         text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
 
         # Brahmic schemes are all within a specific range of code points.
@@ -108,8 +111,6 @@ module Sanscript
           :itrans
         elsif RE_HARVARD_KYOTO.match?(text)
           :hk
-        else
-          :unknown
         end
       end
     end

@@ -2,20 +2,31 @@
 
 require "sanscript/refinements"
 require "sanscript/transliterate/schemes"
-#
-# Sanscript
-#
-# Sanscript is a Sanskrit transliteration library. Currently, it supports
-# other Indian languages only incidentally.
-#
-# Released under the MIT and GPL Licenses.
-#
 module Sanscript
   using Refinements
+  # Sanskrit transliteration module.
+  # Derived from Sanscript, released under the MIT and GPL Licenses.
+  # "Sanscript is a Sanskrit transliteration library. Currently, it supports
+  # other Indian languages only incidentally."
   module Transliterate
     class << self
-      attr_reader :defaults, :schemes, :scheme_names, :brahmic_schemes, :roman_schemes,
-                  :all_alternates
+      # @return [Array<Symbol>] the names of all supported schemes
+      attr_reader :scheme_names
+
+      # @return [Array<Symbol>] the names of all Brahmic schemes
+      attr_reader :brahmic_schemes
+
+      # @return [Array<Symbol>] the names of all roman schemes
+      attr_reader :roman_schemes
+
+      # @return [Hash] the data for all schemes
+      attr_reader :schemes
+
+      # @return [Hash] the alternate-character data for all schemes
+      attr_reader :all_alternates
+
+      # @return [Hash] the default transliteration options
+      attr_reader :defaults
     end
 
     @defaults = {
@@ -27,44 +38,37 @@ module Sanscript
 
     module_function
 
+    # Check whether the given scheme encodes Brahmic Sanskrit.
     #
-    #  Check whether the given scheme encodes Brahmic Sanskrit.
-    #
-    #  @param name  the scheme name
-    #  @return      boolean
-    #
+    # @param name [Symbol] the scheme name
+    # @return [Boolean]
     def brahmic_scheme?(name)
       @brahmic_schemes.include?(name.to_sym)
     end
 
-    #
     #  Check whether the given scheme encodes romanized Sanskrit.
     #
-    #  @param name  the scheme name
-    #  @return      boolean
-    #
+    #  @param name [Symbol] the scheme name
+    #  @return [Boolean]
     def roman_scheme?(name)
       @roman_schemes.include?(name.to_sym)
     end
 
-    #
     # Add a Brahmic scheme to Sanscript.
     #
     # Schemes are of two types: "Brahmic" and "roman". Brahmic consonants
     # have an inherent vowel sound, but roman consonants do not. This is the
     # main difference between these two types of scheme.
     #
-    # A scheme definition is an object ("{}") that maps a group name to a
-    # list of characters. For illustration, see the "devanagari" scheme at
-    # the top of this file.
+    # A scheme definition is a Hash that maps a group name to a
+    # list of characters. For illustration, see `transliterate/schemes.rb`.
     #
     # You can use whatever group names you like, but for the best results,
     # you should use the same group names that Sanscript does.
     #
-    # @param name    the scheme name
-    # @param scheme  the scheme data itself. This should be constructed as
-    #                described above.
-    #
+    # @param name [Symbol] the scheme name
+    # @param scheme [Hash] the scheme data, constructed as described above
+    # @return [Hash] the frozen scheme data as it exists inside the module
     def add_brahmic_scheme(name, scheme)
       name = name.to_sym
       scheme = scheme.deep_dup
@@ -74,15 +78,12 @@ module Sanscript
       scheme
     end
 
-    #
     # Add a roman scheme to Sanscript.
     #
-    # See the comments on Sanscript.add_brahmic_scheme. The "vowel_marks" field
-    # can be omitted.
-    #
-    # @param name    the scheme name
-    # @param scheme  the scheme data itself
-    #
+    # @param name [Symbol] the scheme name
+    # @param scheme [Hash] the scheme data, constructed as in {add_brahmic_scheme}.
+    #                      The "vowel_marks" field can be omitted
+    # @return [Hash] the frozen scheme data as it exists inside the module
     def add_roman_scheme(name, scheme)
       name = name.to_sym
       scheme = scheme.deep_dup
@@ -92,13 +93,6 @@ module Sanscript
       @scheme_names.add(name)
       scheme
     end
-
-    #
-    # Create a deep copy of an object, for certain kinds of objects.
-    #
-    # @param scheme  the scheme to copy
-    # @return        the copy
-    #
 
     # Set up various schemes
     begin
@@ -136,16 +130,15 @@ module Sanscript
       @all_alternates.each { |_, scheme| scheme.deep_freeze }
     end
 
-    # /**
     # Transliterate from one script to another.
-    #  *
-    # @param data     the string to transliterate
-    # @param from     the source script
-    # @param to       the destination script
-    # @param options  transliteration options
-    # @return         the finished string
     #
-    def transliterate(data, from, to, options = {})
+    # @param data [String] the String to transliterate
+    # @param from [Symbol] the source script
+    # @param to [Symbol] the destination script
+    # @option opts [Boolean] :skip_sgml (false) escape SGML-style tags in text string
+    # @option opts [Boolean] :syncope (false) activate Hindi-style schwa syncope
+    # @return [String] the transliterated string
+    def transliterate(data, from, to, **opts)
       from = from.to_sym
       to = to.to_sym
       return data if from == to
@@ -153,7 +146,7 @@ module Sanscript
       raise "Scheme not known ':#{to}'" unless @schemes.key?(to)
 
       data = data.to_str.dup
-      options = @defaults.merge(options)
+      options = @defaults.merge(opts)
       map = make_map(from, to)
 
       data.gsub!(/(<.*?>)/, "##\\1##") if options[:skip_sgml]
@@ -175,13 +168,12 @@ module Sanscript
     class << self
       private
 
-      #
       # Create a map from every character in `from` to its partner in `to`.
       # Also, store any "marks" that `from` might have.
       #
-      # @param from     input scheme
-      # @param to       output scheme
-      #
+      # @param from [Symbol] name of input scheme
+      # @param to [Symbol] name of output scheme
+      # @return [Hash] a mapping from one scheme to another
       def make_map(from, to)
         @cache[:"#{from}_#{to}"] ||= begin
           alternates = @all_alternates[from] || {}
@@ -229,16 +221,12 @@ module Sanscript
         end
       end
 
-      #
       # Transliterate from a romanized script.
       #
-      # @param data     the string to transliterate
-      # @param map      map data generated from makeMap()
-      # @param options  transliteration options
-      # @return         the finished string
-      #
+      # @param data [String] the string to transliterate
+      # @param map [Hash] map data generated from {#make_map}
+      # @return [String] the transliterated string
       def transliterate_roman(data, map, options = {})
-        options = @defaults.merge(options)
         data = data.to_str.dup
         buf = []
         token_buffer = String.new
@@ -308,13 +296,11 @@ module Sanscript
         buf.join("")
       end
 
-      #
       # Transliterate from a Brahmic script.
       #
-      # @param data     the string to transliterate
-      # @param map      map data generated from makeMap()
-      # @return         the finished string
-      #
+      # @param data [String] the string to transliterate
+      # @param map [Hash] map data generated from {#make_map}
+      # @return [String] the transliterated string
       def transliterate_brahmic(data, map)
         data = data.to_str.dup
         buf = []

@@ -2,6 +2,7 @@
 require "ice_nine"
 
 module Sanscript
+  # A set of helpful refinements for duplication and deep freezing.
   module Refinements
     refine Object do
       def deep_dup
