@@ -81,5 +81,37 @@ module Sanscript
         :unknown
       end
     end
+
+    # If Ruby 2.4's Regexp#match? method is found, use it for performance
+    if Regexp.method_defined?(:match?)
+      def detect_script(text)
+        text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
+
+        # Brahmic schemes are all within a specific range of code points.
+        if RE_BRAHMIC_RANGE.match?(text)
+          RE_BRAHMIC_SCRIPTS.each do |script, regex|
+            return script if regex.match?(text)
+          end
+        end
+
+        # Romanizations
+        if RE_IAST_OR_KOLKATA_ONLY.match?(text)
+          return :kolkata if RE_KOLKATA_ONLY.match?(text)
+          :iast
+        elsif RE_ITRANS_ONLY.match?(text)
+          :itrans
+        elsif RE_SLP1_ONLY.match?(text)
+          :slp1
+        elsif RE_VELTHUIS_ONLY.match?(text)
+          :velthuis
+        elsif RE_ITRANS_OR_VELTHUIS_ONLY.match?(text)
+          :itrans
+        elsif RE_HARVARD_KYOTO.match?(text)
+          :hk
+        else
+          :unknown
+        end
+      end
+    end
   end
 end
