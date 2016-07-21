@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-# rubocop:disable Style/CaseEquality
 
-#
-# Developed from code available @ https://github.com/sanskrit/detect.js
-#
 module Sanscript
+  # Transliteration scheme detection module.
+  # Developed from code available @ https://github.com/sanskrit/detect.js
   module Detect
+    # rubocop:disable Style/CaseEquality
+
     # Match any character in the block of Brahmic scripts
     # between Devanagari and Malayalam.
     RE_BRAHMIC_RANGE = /[\u0900-\u0d7f]/
@@ -111,8 +111,6 @@ module Sanscript
           :itrans
         elsif RE_HARVARD_KYOTO.match?(text)
           :hk
-        else
-          :unknown
         end
       end
     end

@@ -2,16 +2,12 @@
 
 require "sanscript/refinements"
 require "sanscript/transliterate/schemes"
-#
-# Sanscript
-#
-# Sanscript is a Sanskrit transliteration library. Currently, it supports
-# other Indian languages only incidentally.
-#
-# Released under the MIT and GPL Licenses.
-#
 module Sanscript
   using Refinements
+  # Sanskrit transliteration module.
+  # Derived from Sanscript, released under the MIT and GPL Licenses.
+  # "Sanscript is a Sanskrit transliteration library. Currently, it supports
+  # other Indian languages only incidentally."
   module Transliterate
     class << self
       # @return [Array<Symbol>] the names of all supported schemes
@@ -139,9 +135,10 @@ module Sanscript
     # @param data [String] the String to transliterate
     # @param from [Symbol] the source script
     # @param to [Symbol] the destination script
-    # @param options [Hash] transliteration options
+    # @option opts [Boolean] :skip_sgml (false) escape SGML-style tags in text string
+    # @option opts [Boolean] :syncope (false) activate Hindi-style schwa syncope
     # @return [String] the transliterated string
-    def transliterate(data, from, to, options = {})
+    def transliterate(data, from, to, **opts)
       from = from.to_sym
       to = to.to_sym
       return data if from == to
@@ -149,7 +146,7 @@ module Sanscript
       raise "Scheme not known ':#{to}'" unless @schemes.key?(to)
 
       data = data.to_str.dup
-      options = @defaults.merge(options)
+      options = @defaults.merge(opts)
       map = make_map(from, to)
 
       data.gsub!(/(<.*?>)/, "##\\1##") if options[:skip_sgml]
@@ -230,7 +227,6 @@ module Sanscript
       # @param map [Hash] map data generated from {#make_map}
       # @return [String] the transliterated string
       def transliterate_roman(data, map, options = {})
-        options = @defaults.merge(options)
         data = data.to_str.dup
         buf = []
         token_buffer = String.new

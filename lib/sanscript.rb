@@ -4,6 +4,7 @@ require "sanscript/detect"
 require "sanscript/transliterate"
 require "sanscript/benchmark"
 
+# Sanscript.rb detection/transliteration module for Sanskrit.
 module Sanscript
   module_function
 
