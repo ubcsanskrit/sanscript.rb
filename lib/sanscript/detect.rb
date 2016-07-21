@@ -44,14 +44,17 @@ module Sanscript
     # Match on characters available in Harvard-Kyoto
     RE_HARVARD_KYOTO = /[aAiIuUeoRMHkgGcjJTDNtdnpbmyrlvzSsh]/
 
+    # Match ##...## or {#...#} control blocks.
+    RE_CONTROL_BLOCK = /(?<!\\)##.*?(?<!\\)##|(?<!\\)\{#.*?(?<!\\)#\}/
+
     private_constant :RE_BRAHMIC_RANGE, :RE_BRAHMIC_SCRIPTS, :RE_IAST_OR_KOLKATA_ONLY,
                      :RE_KOLKATA_ONLY, :RE_ITRANS_ONLY, :RE_SLP1_ONLY, :RE_VELTHUIS_ONLY,
-                     :RE_ITRANS_OR_VELTHUIS_ONLY, :RE_HARVARD_KYOTO
+                     :RE_ITRANS_OR_VELTHUIS_ONLY, :RE_HARVARD_KYOTO, :RE_CONTROL_BLOCK
 
     module_function
 
     def detect_script(text)
-      text = text.to_str.gsub(/(?<!\\)##.*?(?<!\\)##|(?<!\\)\{#.*?(?<!\\)#\}/, "")
+      text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
 
       # Brahmic schemes are all within a specific range of code points.
       if RE_BRAHMIC_RANGE === text
