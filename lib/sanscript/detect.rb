@@ -86,6 +86,7 @@ module Sanscript
 
     # If Ruby 2.4's Regexp#match? method is found, use this version of detect_scheme
     if Regexp.method_defined?(:match?)
+      # @!visibility private
       def detect_scheme(text)
         text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
 
