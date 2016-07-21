@@ -26,19 +26,19 @@ module Sanscript
       ::Benchmark.ips do |x|
         x.config(time: 5, warmup: 1)
         x.report("Detect Devanagari") do
-          Sanscript::Detect.detect_script(deva_string) == :devanagari
+          raise unless Sanscript::Detect.detect_scheme(deva_string) == :devanagari
         end
         x.report("Detect Malayalam") do
-          Sanscript::Detect.detect_script(malayalam_string) == :malayalam
+          raise unless Sanscript::Detect.detect_scheme(malayalam_string) == :malayalam
         end
         x.report("Detect IAST") do
-          Sanscript::Detect.detect_script(iast_string) == :iast
+          raise unless Sanscript::Detect.detect_scheme(iast_string) == :iast
         end
         x.report("Detect SLP1") do
-          Sanscript::Detect.detect_script(slp1_string) == :slp1
+          raise unless Sanscript::Detect.detect_scheme(slp1_string) == :slp1
         end
         x.report("Detect HK") do
-          Sanscript::Detect.detect_script(hk_string) == :hk
+          raise unless Sanscript::Detect.detect_scheme(hk_string) == :hk
         end
         x.compare!
       end
@@ -54,22 +54,22 @@ module Sanscript
         x.config(time: 5, warmup: 2)
 
         x.report("IAST==>Devanagari") do
-          Sanscript.transliterate(iast_string, :iast, :devanagari) == deva_string
+          raise unless Sanscript.transliterate(iast_string, :iast, :devanagari) == deva_string
         end
         x.report("IAST==>SLP1") do
-          Sanscript.transliterate(iast_string, :iast, :slp1) == slp1_string
+          raise unless Sanscript.transliterate(iast_string, :iast, :slp1) == slp1_string
         end
         x.report("SLP1==>Devanagari") do
-          Sanscript.transliterate(slp1_string, :slp1, :devanagari) == deva_string
+          raise unless Sanscript.transliterate(slp1_string, :slp1, :devanagari) == deva_string
         end
         x.report("SLP1==>IAST") do
-          Sanscript.transliterate(slp1_string, :slp1, :iast) == iast_string
+          raise unless Sanscript.transliterate(slp1_string, :slp1, :iast) == iast_string
         end
         x.report("Devanagari==>SLP1") do
-          Sanscript.transliterate(deva_string, :devanagari, :slp1) == slp1_string
+          raise unless Sanscript.transliterate(deva_string, :devanagari, :slp1) == slp1_string
         end
         x.report("Devanagari==>IAST") do
-          Sanscript.transliterate(deva_string, :devanagari, :iast) == iast_string
+          raise unless Sanscript.transliterate(deva_string, :devanagari, :iast) == iast_string
         end
         x.compare!
       end
