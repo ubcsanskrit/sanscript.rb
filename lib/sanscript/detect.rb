@@ -77,8 +77,6 @@ module Sanscript
         :itrans
       elsif RE_HARVARD_KYOTO === text
         :hk
-      else
-        :unknown
       end
     end
 
