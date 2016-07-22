@@ -4,8 +4,6 @@ module Sanscript
   # Transliteration scheme detection module.
   # Developed from code available @ https://github.com/sanskrit/detect.js
   module Detect
-    # rubocop:disable Style/CaseEquality
-
     # Match any character in the block of Brahmic scripts
     # between Devanagari and Malayalam.
     RE_BRAHMIC_RANGE = /[\u0900-\u0d7f]/
@@ -53,66 +51,22 @@ module Sanscript
 
     module_function
 
-    # Attempts to detect the encoding scheme of the provided string.
+    # @!method detect_scheme(text)
+    #   Attempts to detect the encoding scheme of the provided string.
     #
-    # @param text [String] a string of Sanskrit text
-    # @return [Symbol, nil] the Symbol of the scheme, or nil if no match
-    def detect_scheme(text)
-      text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
+    #   Uses the most efficient implementation for your ruby version
+    #   (either {Ruby2x#detect_scheme} or {Ruby24#detect_scheme})
+    #
+    #   @param text [String] a string of Sanskrit text
+    #   @return [Symbol, nil] the Symbol of the scheme, or nil if no match
 
-      # Brahmic schemes are all within a specific range of code points.
-      if RE_BRAHMIC_RANGE === text
-        RE_BRAHMIC_SCRIPTS.each do |script, regex|
-          return script if regex === text
-        end
-      end
-
-      # Romanizations
-      if RE_IAST_OR_KOLKATA_ONLY === text
-        return :kolkata if RE_KOLKATA_ONLY === text
-        :iast
-      elsif RE_ITRANS_ONLY === text
-        :itrans
-      elsif RE_SLP1_ONLY === text
-        :slp1
-      elsif RE_VELTHUIS_ONLY === text
-        :velthuis
-      elsif RE_ITRANS_OR_VELTHUIS_ONLY === text
-        :itrans
-      elsif RE_HARVARD_KYOTO === text
-        :hk
-      end
-    end
-
-    # If Ruby 2.4's Regexp#match? method is found, use this version of detect_scheme
+    # @!visibility private
     if Regexp.method_defined?(:match?)
-      # @!visibility private
-      def detect_scheme(text)
-        text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
-
-        # Brahmic schemes are all within a specific range of code points.
-        if RE_BRAHMIC_RANGE.match?(text)
-          RE_BRAHMIC_SCRIPTS.each do |script, regex|
-            return script if regex.match?(text)
-          end
-        end
-
-        # Romanizations
-        if RE_IAST_OR_KOLKATA_ONLY.match?(text)
-          return :kolkata if RE_KOLKATA_ONLY.match?(text)
-          :iast
-        elsif RE_ITRANS_ONLY.match?(text)
-          :itrans
-        elsif RE_SLP1_ONLY.match?(text)
-          :slp1
-        elsif RE_VELTHUIS_ONLY.match?(text)
-          :velthuis
-        elsif RE_ITRANS_OR_VELTHUIS_ONLY.match?(text)
-          :itrans
-        elsif RE_HARVARD_KYOTO.match?(text)
-          :hk
-        end
-      end
+      require "sanscript/detect/ruby24"
+      extend Ruby24
+    else
+      require "sanscript/detect/ruby2x"
+      extend Ruby2x
     end
   end
 end
