@@ -5,7 +5,9 @@ require "sanscript/transliterate/schemes"
 module Sanscript
   using Refinements
   # Sanskrit transliteration module.
-  # Derived from Sanscript, released under the MIT and GPL Licenses.
+  # Derived from Sanscript (https://github.com/sanskrit/sanscript.js), which is
+  # released under the MIT and GPL Licenses.
+  #
   # "Sanscript is a Sanskrit transliteration library. Currently, it supports
   # other Indian languages only incidentally."
   module Transliterate
