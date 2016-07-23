@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "sanscript/refinements"
 require "sanscript/transliterate/schemes"
 module Sanscript
-  using Refinements
+  using ::Ragabash::Refinements
   # Sanskrit transliteration module.
   # Derived from Sanscript (https://github.com/sanskrit/sanscript.js), which is
   # released under the MIT and GPL Licenses.

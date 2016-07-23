@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "ragabash"
+
 require "sanscript/version"
 require "sanscript/detect"
 require "sanscript/transliterate"
