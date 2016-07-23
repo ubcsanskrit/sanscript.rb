@@ -25,7 +25,9 @@ Or install it yourself as:
 
 ## Usage
 
-You can access detection through `Sanscript.detect(text)` and transliteration through `Sanscript.transliterate(text, from, to)`. Code should be fairly straightforward and partially documented.
+You can access detection through `Sanscript.detect(text)` and transliteration through `Sanscript.transliterate(text, from, to)`.
+
+Documentation is provided in YARD format and available online at [rubydoc.info](http://www.rubydoc.info/github/ubcsanskrit/sanscript.rb).
 
 ## Development
 
