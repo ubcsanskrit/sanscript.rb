@@ -107,7 +107,7 @@ module Sanscript
         vowel_marks: "ਾ ਿ ੀ ੁ ੂ      ੇ ੈ  ੋ ੌ".w_split,
         other_marks: "ਂ ਃ ਁ".w_split,
         virama: ["੍"],
-        consonants: "ਕ ਖ ਗ ਘ ਙ ਚ ਛ ਜ ਝ ਞ ਟ ਠ ਡ ਢ ਣ ਤ ਥ ਦ ਧ ਨ ਪ ਫ ਬ ਭ ਮ ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼ ਕ੍ਸ਼ ਜ੍ਞ".w_split,
+        consonants: "ਕ ਖ ਗ ਘ ਙ ਚ ਛ ਜ ਝ ਞ ਟ ਠ ਡ ਢ ਣ ਤ ਥ ਦ ਧ ਨ ਪ ਫ ਬ ਭ ਮ ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼ ਕ੍ਸ਼ ਜ੍ਞ".w_split,
         symbols: "੦ ੧ ੨ ੩ ੪ ੫ ੬ ੭ ੮ ੯ ॐ ऽ । ॥".w_split,
         other: " ਖ ਗ ਜ ਡ  ਫ  ".w_split,
       },

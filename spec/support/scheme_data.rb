@@ -39,11 +39,11 @@ RSpec.shared_context "scheme_data" do
           vowels: "ਅ ਆ ਇ ਈ ਉ ਊ ਏ ਐ ਓ ਔ",
           marks: "ਕ ਖਾ ਗਿ ਘੀ ਙੁ ਚੂ ਟੇ ਠੈ ਡੋ ਢੌ ਣਂ ਤਃ ਥ੍",
           consonants: "ਕ ਖ ਗ ਘ ਙ ਚ ਛ ਜ ਝ ਞ ਟ ਠ ਡ ਢ ਣ ਤ ਥ ਦ ਧ ਨ ਪ ਫ ਬ ਭ ਮ",
-          other: "ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼",
+          other: "ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼",
           symbols: "ॐ । ॥ ੦ ੧ ੨ ੩ ੪ ੫ ੬ ੭ ੮ ੯",
           putra: "ਪੁਤ੍ਰ",
           naraIti: "ਨਰ ਇਤਿ",
-          sentence: "ਧਰ੍ਮਕ੍ਸ਼ੇਤ੍ਰੇ ਕੁਰੁਕ੍ਸ਼ੇਤ੍ਰੇ ਸਮਵੇਤਾ ਯੁਯੁਤ੍ਸਵਃ ।",
+          sentence: "ਧਰ੍ਮਕ੍ਸ਼ੇਤ੍ਰੇ ਕੁਰੁਕ੍ਸ਼ੇਤ੍ਰੇ ਸਮਵੇਤਾ ਯੁਯੁਤ੍ਸਵਃ ।",
         },
         hk: {
           vowels: "a A i I u U R RR lR lRR e ai o au",
