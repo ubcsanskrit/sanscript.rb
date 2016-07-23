@@ -295,6 +295,111 @@ describe Sanscript::Transliterate do
     end
   end
 
-  it "Has tests for more scripts"
-  it "Has tests for dravidian encodings"
+  context "Control blocks" do
+    context "Sanscript style" do
+      context "From Brahmic" do
+        to = :hk
+        from = :devanagari
+        it "Basic Disable" do
+          expect(described_class.transliterate("अ##क्ष##र", from, to)).to eq("aक्षra")
+        end
+        it "Initial disable" do
+          expect(described_class.transliterate("##अ##क्षर", from, to)).to eq("अkSara")
+        end
+        it "Final disable 1" do
+          expect(described_class.transliterate("अक्ष##र##", from, to)).to eq("akSaर")
+        end
+        it "Final disable 2" do
+          expect(described_class.transliterate("अक्ष##र", from, to)).to eq("akSaर")
+        end
+        it "Redundant disable 1" do
+          expect(described_class.transliterate("अक्ष##र####", from, to)).to eq("akSaर")
+        end
+        it "Redundant disable 2" do
+          expect(described_class.transliterate("अ####क्षर", from, to)).to eq("akSara")
+        end
+        it "Misleading disable" do
+          expect(described_class.transliterate("अ#क्षर", from, to)).to eq("a#kSara")
+        end
+      end
+      context "From roman" do
+        to = :devanagari
+        from = :hk
+        it "Basic Disable" do
+          expect(described_class.transliterate("akSa##kSa##ra", from, to)).to eq("अक्षkSaर")
+        end
+        it "Initial disable" do
+          expect(described_class.transliterate("##akSa##kSa##ra", from, to)).to eq("akSaक्षra")
+        end
+        it "Final disable 1" do
+          expect(described_class.transliterate("akSa##ra##", from, to)).to eq("अक्षra")
+        end
+        it "Final disable 2" do
+          expect(described_class.transliterate("akSa##ra", from, to)).to eq("अक्षra")
+        end
+        it "Redundant disable 1" do
+          expect(described_class.transliterate("akSa##kSa##ra####", from, to)).to eq("अक्षkSaर")
+        end
+        it "Redundant disable 2" do
+          expect(described_class.transliterate("a####kSara", from, to)).to eq("अक्षर")
+        end
+        it "Misleading disable" do
+          expect(described_class.transliterate("a#kSara", from, to)).to eq("अ#क्षर")
+        end
+      end
+    end
+
+    context "Dphil style" do
+      context "From Brahmic" do
+        to = :hk
+        from = :devanagari
+        it "Basic Disable" do
+          expect(described_class.transliterate("अ{#क्ष#}र", from, to)).to eq("a{#क्ष#}ra")
+        end
+        it "Initial disable" do
+          expect(described_class.transliterate("{#अ#}क्षर", from, to)).to eq("{#अ#}kSara")
+        end
+        it "Final disable 1" do
+          expect(described_class.transliterate("अक्ष{#र#}", from, to)).to eq("akSa{#र#}")
+        end
+        it "Final disable 2" do
+          expect(described_class.transliterate("अक्ष{#र", from, to)).to eq("akSa{#र")
+        end
+        it "Redundant disable 1" do
+          expect(described_class.transliterate("अक्ष{#र#}{#", from, to)).to eq("akSa{#र#}{#")
+        end
+        it "Redundant disable 2" do
+          expect(described_class.transliterate("अ{##}क्षर", from, to)).to eq("a{##}kSara")
+        end
+        it "Misleading disable" do
+          expect(described_class.transliterate("अ{क्षर", from, to)).to eq("a{kSara")
+        end
+      end
+      context "From roman" do
+        to = :devanagari
+        from = :hk
+        it "Basic Disable" do
+          expect(described_class.transliterate("akSa{#kSa#}ra", from, to)).to eq("अक्ष{#kSa#}र")
+        end
+        it "Initial disable" do
+          expect(described_class.transliterate("{#akSa#}kSa{#ra", from, to)).to eq("{#akSa#}क्ष{#ra")
+        end
+        it "Final disable 1" do
+          expect(described_class.transliterate("akSa{#ra#}", from, to)).to eq("अक्ष{#ra#}")
+        end
+        it "Final disable 2" do
+          expect(described_class.transliterate("akSa{#ra", from, to)).to eq("अक्ष{#ra")
+        end
+        it "Redundant disable 1" do
+          expect(described_class.transliterate("akSa{#kSa#}ra{##}", from, to)).to eq("अक्ष{#kSa#}र{##}")
+        end
+        it "Redundant disable 2" do
+          expect(described_class.transliterate("a{##}kSara", from, to)).to eq("अ{##}क्षर")
+        end
+        it "Misleading disable" do
+          expect(described_class.transliterate("a{kSara", from, to)).to eq("अ{क्षर")
+        end
+      end
+    end
+  end
 end
