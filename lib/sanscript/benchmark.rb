@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+#:nocov:
 
-require "sanscript/refinements"
 begin
   require "benchmark/ips"
 rescue LoadError
@@ -12,7 +12,6 @@ rescue LoadError
 end
 
 module Sanscript
-  using Refinements
   # Benchmark/testing module.
   module Benchmark
     module_function
