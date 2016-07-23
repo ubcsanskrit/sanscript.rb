@@ -143,8 +143,8 @@ module Sanscript
       from = from.to_sym
       to = to.to_sym
       return data if from == to
-      raise "Scheme not known ':#{from}'" unless @schemes.key?(from)
-      raise "Scheme not known ':#{to}'" unless @schemes.key?(to)
+      raise SchemeNotSupportedError, from unless @schemes.key?(from)
+      raise SchemeNotSupportedError, to unless @schemes.key?(to)
 
       data = data.to_str.dup
       options = @defaults.merge(opts)
