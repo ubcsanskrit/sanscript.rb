@@ -39,11 +39,11 @@ RSpec.shared_context "scheme_data" do
           vowels: "ਅ ਆ ਇ ਈ ਉ ਊ ਏ ਐ ਓ ਔ",
           marks: "ਕ ਖਾ ਗਿ ਘੀ ਙੁ ਚੂ ਟੇ ਠੈ ਡੋ ਢੌ ਣਂ ਤਃ ਥ੍",
           consonants: "ਕ ਖ ਗ ਘ ਙ ਚ ਛ ਜ ਝ ਞ ਟ ਠ ਡ ਢ ਣ ਤ ਥ ਦ ਧ ਨ ਪ ਫ ਬ ਭ ਮ",
-          other: "ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼",
+          other: "ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼",
           symbols: "ॐ । ॥ ੦ ੧ ੨ ੩ ੪ ੫ ੬ ੭ ੮ ੯",
           putra: "ਪੁਤ੍ਰ",
           naraIti: "ਨਰ ਇਤਿ",
-          sentence: "ਧਰ੍ਮਕ੍ਸ਼ੇਤ੍ਰੇ ਕੁਰੁਕ੍ਸ਼ੇਤ੍ਰੇ ਸਮਵੇਤਾ ਯੁਯੁਤ੍ਸਵਃ ।",
+          sentence: "ਧਰ੍ਮਕ੍ਸ਼ੇਤ੍ਰੇ ਕੁਰੁਕ੍ਸ਼ੇਤ੍ਰੇ ਸਮਵੇਤਾ ਯੁਯੁਤ੍ਸਵਃ ।",
         },
         hk: {
           vowels: "a A i I u U R RR lR lRR e ai o au",
@@ -88,6 +88,16 @@ RSpec.shared_context "scheme_data" do
         itrans_dravidian: {
           short_vowels: "e E o O",
           short_marks: "ke kE ko kO",
+        },
+        velthuis: {
+          vowels: "a aa i ii u uu .r .rr .li .ll e ai o au",
+          marks: "ka khaa gi ghii \"nu cuu ch.r j.rr jh.li ~n.ll .te .thai .do .dhau .na.m ta.h th",
+          consonants: "ka kha ga gha \"na ca cha ja jha ~na .ta .tha .da .dha .na ta tha da dha na pa pha ba bha ma",
+          other: "ya ra la va ~sa .sa sa ha La",
+          symbols: "o.m | || 0 1 2 3 4 5 6 7 8 9",
+          putra: "putra",
+          naraIti: "nara iti",
+          sentence: "dharmak.setre kuruk.setre samavetaa yuyutsava.h |",
         },
         kolkata: {
           short_vowels: "e ē o ō",

@@ -107,7 +107,7 @@ module Sanscript
         vowel_marks: "ਾ ਿ ੀ ੁ ੂ      ੇ ੈ  ੋ ੌ".w_split,
         other_marks: "ਂ ਃ ਁ".w_split,
         virama: ["੍"],
-        consonants: "ਕ ਖ ਗ ਘ ਙ ਚ ਛ ਜ ਝ ਞ ਟ ਠ ਡ ਢ ਣ ਤ ਥ ਦ ਧ ਨ ਪ ਫ ਬ ਭ ਮ ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼ ਕ੍ਸ਼ ਜ੍ਞ".w_split,
+        consonants: "ਕ ਖ ਗ ਘ ਙ ਚ ਛ ਜ ਝ ਞ ਟ ਠ ਡ ਢ ਣ ਤ ਥ ਦ ਧ ਨ ਪ ਫ ਬ ਭ ਮ ਯ ਰ ਲ ਵ ਸ਼ ਸ਼ ਸ ਹ ਲ਼ ਕ੍ਸ਼ ਜ੍ਞ".w_split,
         symbols: "੦ ੧ ੨ ੩ ੪ ੫ ੬ ੭ ੮ ੯ ॐ ऽ । ॥".w_split,
         other: " ਖ ਗ ਜ ਡ  ਫ  ".w_split,
       },
@@ -258,7 +258,7 @@ module Sanscript
         vowels: "a aa i ii u uu .r .rr .li .ll  e ai  o au".w_split,
         other_marks: ".m .h ".w_split,
         virama: [""],
-        consonants: 'k kh g gh "n c ch j jh ~n .t .th .d .d .n t th d dh n p ph b bh m y r l v ~s .s s h L k.s j~n'.w_split,
+        consonants: 'k kh g gh "n c ch j jh ~n .t .th .d .dh .n t th d dh n p ph b bh m y r l v ~s .s s h L k.s j~n'.w_split,
         symbols: "0 1 2 3 4 5 6 7 8 9 o.m ' | ||".w_split,
       },
 
