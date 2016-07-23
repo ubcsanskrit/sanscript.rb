@@ -89,6 +89,16 @@ RSpec.shared_context "scheme_data" do
           short_vowels: "e E o O",
           short_marks: "ke kE ko kO",
         },
+        velthuis: {
+          vowels: "a aa i ii u uu .r .rr .li .ll e ai o au",
+          marks: "ka khaa gi ghii \"nu cuu ch.r j.rr jh.li ~n.ll .te .thai .do .dhau .na.m ta.h th",
+          consonants: "ka kha ga gha \"na ca cha ja jha ~na .ta .tha .da .dha .na ta tha da dha na pa pha ba bha ma",
+          other: "ya ra la va ~sa .sa sa ha La",
+          symbols: "o.m | || 0 1 2 3 4 5 6 7 8 9",
+          putra: "putra",
+          naraIti: "nara iti",
+          sentence: "dharmak.setre kuruk.setre samavetaa yuyutsava.h |",
+        },
         kolkata: {
           short_vowels: "e ē o ō",
           short_marks: "ke kē ko kō",
