@@ -367,23 +367,6 @@ module Sanscript
         buf << "a" if had_roman_consonant
         buf.join("")
       end
-
-      # New version with token buffer.
-      def new_transliterate_brahmic(data, map)
-        data = data.to_str.dup
-        buf = []
-        token_buffer = String.new
-        had_roman_consonant = false
-        transliteration_enabled = true
-        control_char = false
-        # Match all token substrings to our map.
-        (0...map[:max_token_length]).each do |j|
-          token = token_buffer[0, map[:max_token_length] - j]
-        end
-
-        buf << "a" if had_roman_consonant
-        buf.join("")
-      end
     end
   end
 end
