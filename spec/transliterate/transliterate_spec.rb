@@ -4,7 +4,7 @@ require "spec_helper"
 describe Sanscript::Transliterate do
   brahmic_schemes = %i[bengali devanagari gujarati gurmukhi kannada malayalam
                        oriya tamil telugu]
-  roman_schemes = %i[hk kh iast itrans itrans_dravidian kolkata]
+  roman_schemes = %i[hk kh iast itrans itrans_dravidian kolkata velthuis]
   all_schemes = brahmic_schemes + roman_schemes
 
   context ".schemes" do
@@ -47,43 +47,48 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("ब", from, to)).to eq("ব")
       end
     end
-
     context "to Gujarati" do
       to = :gujarati
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
-
     context "to Gurmukhi" do
       to = :gurmukhi
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
-
     context "to Kannada" do
       to = :kannada
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
-
     context "to Malayalam" do
       to = :malayalam
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
-
     context "to Oriya" do
       to = :oriya
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
-
     context "to Telugu" do
       to = :telugu
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
 
+    context "to IAST" do
+      to = :iast
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+      it "Vowel among other letters" do
+        expect(described_class.transliterate("wwॠww", from, to)).to eq("wwṝww")
+      end
+      it "Consonant among other letters" do
+        expect(described_class.transliterate("wwटww", from, to)).to eq("wwṭaww")
+      end
+    end
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
@@ -94,6 +99,27 @@ describe Sanscript::Transliterate do
       it "Consonant among other letters" do
         expect(described_class.transliterate("wwकww", from, to)).to eq("wwkaww")
       end
+    end
+    context "to SLP1" do
+      to = :slp1
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+      it "Vowel among other letters" do
+        expect(described_class.transliterate("ZZॠZZ", from, to)).to eq("ZZFZZ")
+      end
+      it "Consonant among other letters" do
+        expect(described_class.transliterate("ZZटZZ", from, to)).to eq("ZZwaZZ")
+      end
+    end
+    context "to ITRANS" do
+      to = :itrans
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to Velthuis" do
+      to = :velthuis
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
     end
   end
 
@@ -107,7 +133,6 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("narīxiti", from, to)).to eq("नरीxइति")
       end
     end
-
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
@@ -116,7 +141,6 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("tāmxiti", from, to)).to eq("tAmxiti")
       end
     end
-
     context "to SLP1" do
       to = :slp1
       include_examples("letter tests", from, to)
@@ -124,6 +148,16 @@ describe Sanscript::Transliterate do
       it "Undefined letters" do
         expect(described_class.transliterate("ṣauZiti", from, to)).to eq("zOZiti")
       end
+    end
+    context "to ITRANS" do
+      to = :itrans
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to Velthuis" do
+      to = :velthuis
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
     end
   end
 
@@ -137,7 +171,6 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("naraxiti", from, to)).to eq("नरxइति")
       end
     end
-
     context "to IAST" do
       to = :iast
       include_examples("letter tests", from, to)
@@ -146,7 +179,6 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("tAmxiti", from, to)).to eq("tāmxiti")
       end
     end
-
     context "to SLP1" do
       to = :slp1
       include_examples("letter tests", from, to)
@@ -154,6 +186,16 @@ describe Sanscript::Transliterate do
       it "Undefined letters" do
         expect(described_class.transliterate("tauZiti", from, to)).to eq("tOZiti")
       end
+    end
+    context "to ITRANS" do
+      to = :itrans
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to Velthuis" do
+      to = :velthuis
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
     end
   end
 
@@ -167,7 +209,14 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("narIZiti", from, to)).to eq("नरीZइति")
       end
     end
-
+    context "to IAST" do
+      to = :iast
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+      it "Undefined letters" do
+        expect(described_class.transliterate("zOZiti", from, to)).to eq("ṣauZiti")
+      end
+    end
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
@@ -176,14 +225,73 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("RAmZiti", from, to)).to eq("NAmZiti")
       end
     end
+    context "to ITRANS" do
+      to = :itrans
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to Velthuis" do
+      to = :velthuis
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+  end
 
+  context "ITRANS" do
+    from = :itrans
+    context "to Devanagari" do
+      to = :devanagari
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
     context "to IAST" do
       to = :iast
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
-      it "Undefined letters" do
-        expect(described_class.transliterate("zOZiti", from, to)).to eq("ṣauZiti")
-      end
+    end
+    context "to Harvard-Kyoto" do
+      to = :hk
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to SLP1" do
+      to = :slp1
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to Velthuis" do
+      to = :velthuis
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+  end
+
+  context "Velthuis" do
+    from = :velthuis
+    context "to Devanagari" do
+      to = :devanagari
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to IAST" do
+      to = :iast
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to Harvard-Kyoto" do
+      to = :hk
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to SLP1" do
+      to = :slp1
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
+    end
+    context "to ITRANS" do
+      to = :itrans
+      include_examples("letter tests", from, to)
+      include_examples("text tests", from, to)
     end
   end
 
