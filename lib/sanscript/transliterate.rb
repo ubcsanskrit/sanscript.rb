@@ -311,6 +311,10 @@ module Sanscript
         until data.empty?
           token = data.slice(0, 2)
           if !control_char && token == "##"
+            if had_roman_consonant
+              buf << "a" if transliteration_enabled
+              had_roman_consonant = false
+            end
             transliteration_enabled = !transliteration_enabled
             data.slice!(0, 2)
             next
@@ -321,6 +325,10 @@ module Sanscript
             data.slice!(0, 2)
             next
           elsif transliteration_enabled && token == "{#"
+            if had_roman_consonant
+              buf << "a"
+              had_roman_consonant = false
+            end
             transliteration_enabled = false
             control_char = true
             buf << token
@@ -354,6 +362,23 @@ module Sanscript
               buf << l
             end
           end
+        end
+
+        buf << "a" if had_roman_consonant
+        buf.join("")
+      end
+
+      # New version with token buffer.
+      def new_transliterate_brahmic(data, map)
+        data = data.to_str.dup
+        buf = []
+        token_buffer = String.new
+        had_roman_consonant = false
+        transliteration_enabled = true
+        control_char = false
+        # Match all token substrings to our map.
+        (0...map[:max_token_length]).each do |j|
+          token = token_buffer[0, map[:max_token_length] - j]
         end
 
         buf << "a" if had_roman_consonant
