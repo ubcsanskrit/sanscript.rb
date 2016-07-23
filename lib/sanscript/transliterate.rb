@@ -228,39 +228,40 @@ module Sanscript
       # @param map [Hash] map data generated from {#make_map}
       # @return [String] the transliterated string
       def transliterate_roman(data, map, options = {})
-        data = data.to_str.dup
+        data = data.to_str.chars
         buf = []
-        token_buffer = String.new
+        token_buffer = []
         had_consonant = false
         transliteration_enabled = true
         control_char = false
+        max_token_length = map[:max_token_length]
 
         until data.empty? && token_buffer.empty?
-          token_buffer << data.slice!(0, map[:max_token_length] - token_buffer.length)
-
           # Match all token substrings to our map.
-          map[:max_token_length].downto(1) do |j|
-            token = token_buffer[0, j]
-
-            if !control_char && token == "##"
-              transliteration_enabled = !transliteration_enabled
-              token_buffer.slice!(0, 2)
-              break
-            elsif control_char && token == "#}"
-              transliteration_enabled = true
-              control_char = false
-              buf << token
-              token_buffer.slice!(0, 2)
-              break
-            elsif transliteration_enabled && token == "{#"
-              transliteration_enabled = false
-              control_char = true
-              buf << token
-              token_buffer.slice!(0, 2)
-              break
+          token = data[0, max_token_length].join("")
+          max_token_length.downto(1) do |j|
+            token = token[0, j] unless j == max_token_length
+            if j == 2
+              if !control_char && token == "##"
+                transliteration_enabled = !transliteration_enabled
+                data.shift(2)
+                break
+              elsif control_char && token == "#}"
+                transliteration_enabled = true
+                control_char = false
+                buf << token
+                data.shift(2)
+                break
+              elsif transliteration_enabled && token == "{#"
+                transliteration_enabled = false
+                control_char = true
+                buf << token
+                data.shift(2)
+                break
+              end
             end
-            temp_letter = map[:letters][token]
-            if !temp_letter.nil? && transliteration_enabled
+
+            if transliteration_enabled && (temp_letter = map[:letters][token])
               if map[:to_roman?]
                 buf << temp_letter
               else
@@ -268,18 +269,19 @@ module Sanscript
                 # vowels to appear as marks if we've just seen a
                 # consonant.
                 if had_consonant
-                  temp_mark = map[:marks][token]
-                  if !temp_mark.nil?
+                  # rubocop:disable Metrics/BlockNesting
+                  if (temp_mark = map[:marks][token])
                     buf << temp_mark
                   elsif token != "a"
-                    buf << map[:virama] << temp_letter
+                    buf.push(map[:virama], temp_letter)
                   end
+                  # rubocop:enable Metrics/BlockNesting
                 else
                   buf << temp_letter
                 end
                 had_consonant = map[:consonants].key?(token)
               end
-              token_buffer.slice!(0, j)
+              j > 1 ? data.shift(j) : data.shift
               break
             elsif j == 1 # Last iteration
               if had_consonant
@@ -287,7 +289,7 @@ module Sanscript
                 buf << map[:virama] unless options[:syncope]
               end
               buf << token
-              token_buffer.slice!(0, 1)
+              data.shift
             end
           end
         end
