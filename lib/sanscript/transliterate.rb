@@ -240,8 +240,8 @@ module Sanscript
           token_buffer << data.slice!(0, map[:max_token_length] - token_buffer.length)
 
           # Match all token substrings to our map.
-          (0...map[:max_token_length]).each do |j|
-            token = token_buffer[0, map[:max_token_length] - j]
+          map[:max_token_length].downto(1) do |j|
+            token = token_buffer[0, j]
 
             if !control_char && token == "##"
               transliteration_enabled = !transliteration_enabled
@@ -280,17 +280,15 @@ module Sanscript
                 end
                 had_consonant = map[:consonants].key?(token)
               end
-              token_buffer.slice!(0, map[:max_token_length] - j)
+              token_buffer.slice!(0, j)
               break
-            elsif j == map[:max_token_length] - 1
+            elsif j == 1 # Last iteration
               if had_consonant
                 had_consonant = false
                 buf << map[:virama] unless options[:syncope]
               end
               buf << token
               token_buffer.slice!(0, 1)
-              # 'break' is redundant here, "j == ..." is true only on
-              # the last iteration.
             end
           end
         end
