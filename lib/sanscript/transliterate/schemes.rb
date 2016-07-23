@@ -25,7 +25,7 @@ module Sanscript
       # 'va' and 'ba' are both rendered as ব.
       #
       bengali: {
-        vowels: "অ আ ই ঈ উ ঊ ঋ ৠ ঌ ৡ এ ঐ ও ঔ".w_split,
+        vowels: "অ আ ই ঈ উ ঊ ঋ ৠ ঌ ৡ  এ ঐ  ও ঔ".w_split,
         vowel_marks: "া ি ী ু ূ ৃ ৄ ৢ ৣ  ে ৈ  ো ৌ".w_split,
         other_marks: "ং ঃ ঁ".w_split,
         virama: ["্"],
