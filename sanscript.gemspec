@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "benchmark-ips", "~> 2.6"
   spec.add_development_dependency "yard", "~> 0.9"
 
-  spec.add_runtime_dependency "ragabash", "~> 0.1"
+  spec.add_runtime_dependency "ragabash", "~> 0.2"
 end
