@@ -34,6 +34,15 @@ describe Sanscript::Transliterate do
     end
   end
 
+  context ".transliterate" do
+    it "raises a SchemeNotSupported error if an unsupported scheme is specified" do
+      expect { described_class.transliterate("", :unknown, :hk) }
+        .to raise_error(Sanscript::SchemeNotSupportedError)
+      expect { described_class.transliterate("", :hk, :unknown) }
+        .to raise_error(Sanscript::SchemeNotSupportedError)
+    end
+  end
+
   context "Devanagari" do
     from = :devanagari
     context "to Bengali" do

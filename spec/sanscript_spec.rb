@@ -18,9 +18,17 @@ describe Sanscript do
       expect(described_class.transliterate(scheme_data[:devanagari][:sentence], :devanagari, :iast))
         .to eq(scheme_data[:iast][:sentence])
     end
+    it "returns a result with source specified nil and destination scheme specified" do
+      expect(described_class.transliterate(scheme_data[:devanagari][:sentence], nil, :iast))
+        .to eq(scheme_data[:iast][:sentence])
+    end
     it "returns a result with just destination scheme specified" do
       expect(described_class.transliterate(scheme_data[:devanagari][:sentence], :iast))
         .to eq(scheme_data[:iast][:sentence])
+    end
+    it "raises a DetectionError when it cannot detect the source scheme" do
+      expect { described_class.transliterate("Z", :iast) }
+        .to raise_error(described_class::DetectionError)
     end
   end
 end
