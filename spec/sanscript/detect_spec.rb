@@ -8,10 +8,10 @@ describe Sanscript::Detect do
   context ".detect_scheme" do
     scheme_names.each do |name|
       it "detects #{name} from sample marks" do
-        expect(described_class.detect_scheme(@scheme_data[name][:marks])).to eq(name)
+        expect(described_class.detect_scheme(scheme_data[name][:marks])).to eq(name)
       end
       it "detects #{name} from sample sentence" do
-        expect(described_class.detect_scheme(@scheme_data[name][:sentence])).to eq(name)
+        expect(described_class.detect_scheme(scheme_data[name][:sentence])).to eq(name)
       end
     end
     it "prioritizes ITRANS over Velthuis when ambiguous" do
