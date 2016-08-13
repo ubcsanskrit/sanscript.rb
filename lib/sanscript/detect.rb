@@ -70,5 +70,19 @@ module Sanscript
       extend Ruby2x
     end
     # :nocov:
+
+    # Rust FFI
+    class << self
+      begin
+        require "ffi"
+        extend FFI::Library
+        ffi_lib "rust/target/release/libsanscript.dylib"
+        enum :scripts, %i[unknown devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam iast kolkata itrans slp1 velthuis hk]
+        attach_function :rust_detect_scheme, :detect, [:string], :scripts
+        alias detect_scheme rust_detect_scheme
+      rescue StandardError
+        alias detect_scheme ruby_detect_scheme
+      end
+    end
   end
 end

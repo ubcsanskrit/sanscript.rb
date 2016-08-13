@@ -9,7 +9,7 @@ module Sanscript
       #
       # @param text [String] a string of Sanskrit text
       # @return [Symbol, nil] the Symbol of the scheme, or nil if no match
-      def detect_scheme(text)
+      def ruby_detect_scheme(text)
         text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
 
         # Brahmic schemes are all within a specific range of code points.

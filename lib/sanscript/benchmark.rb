@@ -27,19 +27,34 @@ module Sanscript
       ::Benchmark.ips do |x|
         x.config(time: 5, warmup: 1)
         x.report("Detect Devanagari") do
-          raise unless Sanscript::Detect.detect_scheme(deva_string) == :devanagari
+          raise unless Sanscript::Detect.ruby_detect_scheme(deva_string) == :devanagari
         end
         x.report("Detect Malayalam") do
-          raise unless Sanscript::Detect.detect_scheme(malayalam_string) == :malayalam
+          raise unless Sanscript::Detect.ruby_detect_scheme(malayalam_string) == :malayalam
         end
         x.report("Detect IAST") do
-          raise unless Sanscript::Detect.detect_scheme(iast_string) == :iast
+          raise unless Sanscript::Detect.ruby_detect_scheme(iast_string) == :iast
         end
         x.report("Detect SLP1") do
-          raise unless Sanscript::Detect.detect_scheme(slp1_string) == :slp1
+          raise unless Sanscript::Detect.ruby_detect_scheme(slp1_string) == :slp1
         end
         x.report("Detect HK") do
-          raise unless Sanscript::Detect.detect_scheme(hk_string) == :hk
+          raise unless Sanscript::Detect.ruby_detect_scheme(hk_string) == :hk
+        end
+        x.report("RDetect Devanagari") do
+          raise unless Sanscript::Detect.rust_detect_scheme(deva_string) == :devanagari
+        end
+        x.report("RDetect Malayalam") do
+          raise unless Sanscript::Detect.rust_detect_scheme(malayalam_string) == :malayalam
+        end
+        x.report("RDetect IAST") do
+          raise unless Sanscript::Detect.rust_detect_scheme(iast_string) == :iast
+        end
+        x.report("RDetect SLP1") do
+          raise unless Sanscript::Detect.rust_detect_scheme(slp1_string) == :slp1
+        end
+        x.report("RDetect HK") do
+          raise unless Sanscript::Detect.rust_detect_scheme(hk_string) == :hk
         end
         x.compare!
       end
