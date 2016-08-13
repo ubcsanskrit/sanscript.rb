@@ -1,0 +1,12 @@
+[package]
+name = "sanscript.rs"
+version = "0.1.0"
+authors = ["Tim Bellefleur <nomoon@phoebus.ca>"]
+
+[dependencies]
+libc = "*"
+lazy_static = "*"
+regex = "*"
+
+[lib]
+crate-type = ["dylib"]
