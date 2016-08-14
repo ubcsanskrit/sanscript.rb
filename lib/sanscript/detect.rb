@@ -49,8 +49,6 @@ module Sanscript
                      :RE_KOLKATA_ONLY, :RE_ITRANS_ONLY, :RE_SLP1_ONLY, :RE_VELTHUIS_ONLY,
                      :RE_ITRANS_OR_VELTHUIS_ONLY, :RE_HARVARD_KYOTO, :RE_CONTROL_BLOCK
 
-    module_function
-
     # @!method detect_scheme(text)
     #   Attempts to detect the encoding scheme of the provided string.
     #
@@ -77,10 +75,13 @@ module Sanscript
         require "ffi"
         extend FFI::Library
         ffi_lib "rust/target/release/libsanscript.dylib"
-        enum :scripts, %i[unknown devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam iast kolkata itrans slp1 velthuis hk]
-        attach_function :rust_detect_scheme, :detect, [:string], :scripts
+        attach_function :_rust_detect, :detect, [:string], :int
+        RUST_SCRIPTS = %i[devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam iast kolkata itrans slp1 velthuis hk].unshift(nil)
+        def rust_detect_scheme(text)
+          RUST_SCRIPTS[_rust_detect(text)]
+        end
         alias detect_scheme rust_detect_scheme
-      rescue StandardError
+      rescue LoadError
         alias detect_scheme ruby_detect_scheme
       end
     end
