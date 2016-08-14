@@ -1,5 +1,5 @@
 [package]
-name = "sanscript.rs"
+name = "sanscript"
 version = "0.1.0"
 authors = ["Tim Bellefleur <nomoon@phoebus.ca>"]
 
