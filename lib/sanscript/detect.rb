@@ -76,9 +76,10 @@ module Sanscript
         extend FFI::Library
         ffi_lib "rust/target/release/libsanscript.dylib"
         attach_function :_rust_detect, :detect, [:string], :int
-        RUST_SCRIPTS = %i[devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam iast kolkata itrans slp1 velthuis hk].unshift(nil)
+        RUST_SCHEMES = %i[devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam iast kolkata itrans slp1 velthuis hk].unshift(nil).freeze
+        private_constant :RUST_SCHEMES
         def rust_detect_scheme(text)
-          RUST_SCRIPTS[_rust_detect(text)]
+          RUST_SCHEMES[_rust_detect(text)]
         end
         alias detect_scheme rust_detect_scheme
       rescue LoadError
