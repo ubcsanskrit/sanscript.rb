@@ -9,5 +9,5 @@ task default: :spec
 task :compile do
   Dir.chdir("#{File.dirname(__FILE__)}/rust")
   require "./extconf.rb"
-  sh "make clean && make" if File.exist?("Makefile")
+  sh "make clean && make && make install" if File.exist?("Makefile")
 end

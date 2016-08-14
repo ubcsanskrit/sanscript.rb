@@ -9,3 +9,4 @@
 /tmp/
 /rust/target
 /rust/Makefile
+/rust/libsanscript.*

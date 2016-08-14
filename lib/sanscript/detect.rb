@@ -74,7 +74,7 @@ module Sanscript
       begin
         require "ffi"
         extend FFI::Library
-        ffi_lib "rust/target/release/libsanscript.dylib"
+        ffi_lib Dir.glob(File.join(GEM_ROOT, "rust/libsanscript.*")).first
         attach_function :_rust_detect, :detect, [:string], :int
         RUST_SCHEMES = %i[devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam iast kolkata itrans slp1 velthuis hk].unshift(nil).freeze
         private_constant :RUST_SCHEMES
