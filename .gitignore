@@ -8,3 +8,4 @@
 /spec/reports/
 /tmp/
 /rust/target
+/rust/Makefile

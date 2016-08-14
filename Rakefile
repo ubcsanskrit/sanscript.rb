@@ -7,5 +7,7 @@ RSpec::Core::RakeTask.new(:spec)
 task default: :spec
 
 task :compile do
-  sh "cd #{File.dirname(__FILE__)}/rust && make"
+  Dir.chdir("#{File.dirname(__FILE__)}/rust")
+  require "./extconf.rb"
+  sh "make clean && make" if File.exist?("Makefile")
 end
