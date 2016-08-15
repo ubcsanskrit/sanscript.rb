@@ -1,9 +1,11 @@
 #[macro_use] extern crate lazy_static;
 #[macro_use] extern crate ruru;
+extern crate unicode_normalization;
 extern crate regex;
 
 use ruru::{AnyObject, Class, NilClass, Symbol, RString};
 use ruru::traits::Object;
+#[allow(unused_imports)] use unicode_normalization::UnicodeNormalization;
 use regex::Regex;
 
 methods! {
@@ -113,8 +115,8 @@ methods! {
 }
 
 #[no_mangle]
-pub extern fn main() {
-  Class::from_existing("RustSanscriptDetect").define(|itself| {
+pub extern fn init_rusty_sanscript() {
+  Class::from_existing("RustySanscriptDetect").define(|itself| {
     itself.def("rust_detect_scheme", detect);
   });
 }

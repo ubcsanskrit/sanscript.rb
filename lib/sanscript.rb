@@ -56,4 +56,29 @@ module Sanscript
     end
     Transliterate.transliterate(text, from, to, opts)
   end
+
+  # Override
+  # :nocov:
+  begin
+    require "fiddle"
+    require "thermite/config"
+
+    toplevel_dir = File.dirname(File.dirname(__FILE__))
+    config = Thermite::Config.new(cargo_project_path: toplevel_dir, ruby_project_path: toplevel_dir)
+    library = Fiddle.dlopen(config.ruby_extension_path)
+    module ::RustySanscriptDetect; end # rubocop:disable Style/ClassAndModuleChildren
+    func = Fiddle::Function.new(library["init_rusty_sanscript"],
+                                [], Fiddle::TYPE_VOIDP)
+    func.call
+    module Detect
+      extend ::RustySanscriptDetect
+      class << self
+        alias detect_scheme rust_detect_scheme
+      end
+    end
+    RUST_ENABLED = true
+  rescue Fiddle::DLError
+    RUST_ENABLED = false
+  end
+  # :nocov:
 end

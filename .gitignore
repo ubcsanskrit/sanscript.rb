@@ -7,6 +7,5 @@
 /pkg/
 /spec/reports/
 /tmp/
-/rust/target
-/rust/Makefile
-/rust/libsanscript.*
+/lib/librusty_sanscript.*
+/target

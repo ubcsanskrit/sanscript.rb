@@ -68,20 +68,8 @@ module Sanscript
       require "sanscript/detect/ruby2x"
       extend Ruby2x
     end
-
-    begin
-      require "fiddle"
-      library = Fiddle.dlopen(Dir.glob(File.join(GEM_ROOT, "rust/libsanscript.*")).first)
-      module ::RustSanscriptDetect; end # rubocop:disable Style/ClassAndModuleChildren
-      Fiddle::Function.new(library["main"], [], Fiddle::TYPE_VOIDP).call
-      extend ::RustSanscriptDetect
-      class << self
-        alias detect_scheme rust_detect_scheme
-      end
-    rescue Fiddle::DLError
-      class << self
-        alias detect_scheme ruby_detect_scheme
-      end
+    class << self
+      alias detect_scheme ruby_detect_scheme
     end
     # :nocov:
   end
