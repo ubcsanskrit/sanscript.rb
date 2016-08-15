@@ -53,7 +53,8 @@ module Sanscript
     #   Attempts to detect the encoding scheme of the provided string.
     #
     #   Uses the most efficient implementation for your ruby version
-    #   (either {Ruby2x#detect_scheme} or {Ruby24#detect_scheme})
+    #   (either {Ruby2x#ruby_detect_scheme} or {Ruby24#ruby_detect_scheme}) or
+    #   the Rust native extension if available.
     #
     #   @param text [String] a string of Sanskrit text
     #   @return [Symbol, nil] the Symbol of the scheme, or nil if no match
@@ -67,24 +68,21 @@ module Sanscript
       require "sanscript/detect/ruby2x"
       extend Ruby2x
     end
-    # :nocov:
 
-    # Rust FFI
-    class << self
-      begin
-        require "ffi"
-        extend FFI::Library
-        ffi_lib Dir.glob(File.join(GEM_ROOT, "rust/libsanscript.*")).first
-        attach_function :_rust_detect, :detect, [:string], :int
-        RUST_SCHEMES = %i[devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam iast kolkata itrans slp1 velthuis hk].unshift(nil).freeze
-        private_constant :RUST_SCHEMES
-        def rust_detect_scheme(text)
-          RUST_SCHEMES[_rust_detect(text)]
-        end
+    begin
+      require "fiddle"
+      library = Fiddle.dlopen(Dir.glob(File.join(GEM_ROOT, "rust/libsanscript.*")).first)
+      module ::RustSanscriptDetect; end # rubocop:disable Style/ClassAndModuleChildren
+      Fiddle::Function.new(library["main"], [], Fiddle::TYPE_VOIDP).call
+      extend ::RustSanscriptDetect
+      class << self
         alias detect_scheme rust_detect_scheme
-      rescue LoadError
+      end
+    rescue Fiddle::DLError
+      class << self
         alias detect_scheme ruby_detect_scheme
       end
     end
+    # :nocov:
   end
 end

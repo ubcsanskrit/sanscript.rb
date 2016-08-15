@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Tim Bellefleur <nomoon@phoebus.ca>"]
 
 [dependencies]
-libc = "*"
+ruru = "*"
 lazy_static = "*"
 regex = "*"
 
