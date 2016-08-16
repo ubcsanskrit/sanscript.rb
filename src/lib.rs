@@ -14,7 +14,7 @@ methods! {
   fn detect(s: RString) -> AnyObject {
     lazy_static! {
       // # Match escaped control characters
-      static ref RE_ESCAPED_CONTROL_CHAR: Regex = Regex::new(r"\\(?:\{#|\##|\#})").unwrap();
+      static ref RE_ESCAPED_CONTROL_CHAR: Regex = Regex::new(r"\\(?:\{#|##|#\})").unwrap();
 
       // # Match ##...## or {#...#} control blocks.
       static ref RE_CONTROL_BLOCK: Regex = Regex::new(r"##.*?##|\{#.*?#\}").unwrap();
