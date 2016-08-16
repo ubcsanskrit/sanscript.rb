@@ -1,0 +1,16 @@
+[package]
+name = "rusty_sanscript"
+version = "0.2.0"
+authors = ["Tim Bellefleur <nomoon@phoebus.ca>"]
+publish = false
+
+[dependencies]
+lazy_static = "^0.2.1"
+ruru = "^0.7.8"
+unicode-normalization = "^0.1.2"
+regex = "^0.1.73"
+
+[package.metadata.thermite]
+
+[lib]
+crate-type = ["dylib"]

@@ -1,10 +1,11 @@
 [root]
-name = "sanscript"
-version = "0.1.0"
+name = "rusty_sanscript"
+version = "0.2.0"
 dependencies = [
  "lazy_static 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "libc 0.2.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 0.1.73 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ruru 0.7.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "unicode-normalization 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -60,6 +61,22 @@ version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "ruby-sys"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.15 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "ruru"
+version = "0.7.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "ruby-sys 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "thread-id"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -75,6 +92,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "thread-id 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "unicode-normalization"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "utf8-ranges"
