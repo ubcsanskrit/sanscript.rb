@@ -53,8 +53,9 @@ module Sanscript
     #   Attempts to detect the encoding scheme of the provided string.
     #
     #   Uses the most efficient implementation for your ruby version
-    #   (either {Ruby2x#ruby_detect_scheme} or {Ruby24#ruby_detect_scheme}) or
-    #   the Rust native extension if available.
+    #   (either {Ruby2x#ruby_detect_scheme} or {Ruby24#ruby_detect_scheme})
+    #   at first, which may be then overriden by the Rust native extension
+    #   (see {Sanscript#rust_enable!} and {Sanscript#rust_disable!}})
     #
     #   @param text [String] a string of Sanskrit text
     #   @return [Symbol, nil] the Symbol of the scheme, or nil if no match
@@ -68,10 +69,10 @@ module Sanscript
       require "sanscript/detect/ruby2x"
       extend Ruby2x
     end
+    # :nocov:
     class << self
       alias detect_scheme ruby_detect_scheme
     end
-    # :nocov:
 
     if defined?(Rust) && Rust.instance_methods.include?(:rust_detect_scheme)
       extend Rust
