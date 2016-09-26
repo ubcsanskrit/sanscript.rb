@@ -72,5 +72,9 @@ module Sanscript
       alias detect_scheme ruby_detect_scheme
     end
     # :nocov:
+
+    if defined?(Rust) && Rust.instance_methods.include?(:rust_detect_scheme)
+      extend Rust
+    end
   end
 end

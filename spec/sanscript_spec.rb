@@ -3,7 +3,23 @@ require "spec_helper"
 
 describe Sanscript do
   it "has a version number" do
-    expect(Sanscript::VERSION).not_to be nil
+    expect(described_class::VERSION).not_to be nil
+  end
+
+  it "displays if Rust extension is available" do
+    expect(described_class::RUST_AVAILABLE).not_to be nil
+  end
+
+  it "displays if Rust extension is enabled" do
+    expect(described_class.rust_enabled?).not_to be nil
+  end
+
+  it "allows Rust extension to be disabled" do
+    expect(described_class.rust_disable!).not_to be nil
+  end
+
+  it "allows Rust extension to be enabled" do
+    expect(described_class.rust_enable!).not_to be nil
   end
 
   context ".detect" do
