@@ -10,3 +10,4 @@
 /lib/librusty_sanscript.*
 /target
 mkmf.log
+Cargo.lock
