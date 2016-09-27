@@ -22,16 +22,16 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = "~> 2.2"
 
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 11.2"
+  spec.add_development_dependency "bundler", "~> 1.13"
+  spec.add_development_dependency "rake", "~> 11.3"
   spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 0.6"
-  spec.add_development_dependency "rubocop", "~> 0.41"
-  spec.add_development_dependency "rubocop-rspec", "~> 1.5"
+  spec.add_development_dependency "rubocop", "~> 0.43"
+  spec.add_development_dependency "rubocop-rspec", "~> 1.7"
   spec.add_development_dependency "pry", "~> 0.10"
-  spec.add_development_dependency "benchmark-ips", "~> 2.6"
+  spec.add_development_dependency "benchmark-ips", "~> 2.7"
   spec.add_development_dependency "yard", "~> 0.9"
 
   spec.add_runtime_dependency "ragabash", "~> 0.2"
-  spec.add_runtime_dependency "thermite", "~> 0.5"
+  spec.add_runtime_dependency "thermite", "~> 0.7"
 end

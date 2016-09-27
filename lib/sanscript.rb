@@ -2,6 +2,7 @@
 require "ragabash"
 
 require "sanscript/version"
+require "sanscript/rust"
 require "sanscript/exceptions"
 require "sanscript/detect"
 require "sanscript/transliterate"
@@ -9,6 +10,14 @@ require "sanscript/benchmark"
 
 # Sanscript.rb detection/transliteration module for Sanskrit.
 module Sanscript
+  # :nocov:
+  if RUST_AVAILABLE && ENV["SANSCRIPT_NO_RUST"].nil?
+    rust_enable!
+  else
+    rust_disable!
+  end
+  # :nocov:
+
   module_function
 
   # Attempts to detect the encoding scheme of the provided string.
@@ -56,29 +65,4 @@ module Sanscript
     end
     Transliterate.transliterate(text, from, to, opts)
   end
-
-  # Override
-  # :nocov:
-  begin
-    require "fiddle"
-    require "thermite/config"
-
-    toplevel_dir = File.dirname(File.dirname(__FILE__))
-    config = Thermite::Config.new(cargo_project_path: toplevel_dir, ruby_project_path: toplevel_dir)
-    library = Fiddle.dlopen(config.ruby_extension_path)
-    module ::RustySanscriptDetect; end # rubocop:disable Style/ClassAndModuleChildren
-    func = Fiddle::Function.new(library["init_rusty_sanscript"],
-                                [], Fiddle::TYPE_VOIDP)
-    func.call
-    module Detect
-      extend ::RustySanscriptDetect
-      class << self
-        alias detect_scheme rust_detect_scheme
-      end
-    end
-    RUST_ENABLED = true
-  rescue Fiddle::DLError
-    RUST_ENABLED = false
-  end
-  # :nocov:
 end
