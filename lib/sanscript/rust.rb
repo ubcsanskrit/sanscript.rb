@@ -26,6 +26,7 @@ module Sanscript
   # @return [bool] the enabled status of the Rust extension
   def rust_enable!
     if RUST_AVAILABLE
+      # :nocov:
       Detect.module_eval do
         class << self
           alias_method :detect_scheme, :rust_detect_scheme
@@ -34,6 +35,7 @@ module Sanscript
       @rust_enabled = true
     else
       @rust_enabled = false
+      # :nocov:
     end
     @rust_enabled
   end
