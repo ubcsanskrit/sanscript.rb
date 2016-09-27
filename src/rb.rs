@@ -46,3 +46,7 @@ pub fn define_method(module: &Value, name: &str, method: CallbackPtr, argc: i32)
   let c_strp = str_to_cstrp(name);
   unsafe { class::rb_define_method(*module, c_strp, method, argc) }
 }
+
+pub fn extend_object(object: &Value, module: &Value) {
+  unsafe { class::rb_extend_object(*object, *module) }
+}

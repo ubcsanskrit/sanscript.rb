@@ -3,6 +3,7 @@
 module Sanscript
   module Detect
     # Module implementing `detect_scheme` method using Ruby 2.x-compatible syntax.
+    # (Note: This module will only load if chosen by {Sanscript::Detect}.)
     module Ruby2x
       # Attempts to detect the encoding scheme of the provided string.
       #
