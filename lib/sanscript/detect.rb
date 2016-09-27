@@ -73,9 +73,5 @@ module Sanscript
     class << self
       alias detect_scheme ruby_detect_scheme
     end
-
-    if defined?(Rust) && Rust.instance_methods.include?(:rust_detect_scheme)
-      extend Rust
-    end
   end
 end

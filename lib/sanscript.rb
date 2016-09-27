@@ -10,13 +10,11 @@ require "sanscript/benchmark"
 
 # Sanscript.rb detection/transliteration module for Sanskrit.
 module Sanscript
-  # :nocov:
-  if RUST_AVAILABLE && ENV["SANSCRIPT_NO_RUST"].nil?
-    rust_enable!
-  else
-    rust_disable!
-  end
-  # :nocov:
+  # Whether Rust extension is available.
+  RUST_AVAILABLE = load_rust!
+
+  # Load rust if available.
+  rust_enable!
 
   module_function
 
