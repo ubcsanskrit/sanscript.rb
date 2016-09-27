@@ -16,14 +16,18 @@ describe Sanscript::Detect do
         expect(described_class.ruby_detect_scheme(scheme_data[name][:sentence])).to eq(name)
       end
     end
+    it "detects tamil from short marks" do
+      expect(described_class.ruby_detect_scheme(scheme_data[:tamil][:short_marks])).to eq(:tamil)
+    end
+    it "detects tamil from short vowels" do
+      expect(described_class.ruby_detect_scheme(scheme_data[:tamil][:short_vowels])).to eq(:tamil)
+    end
     it "prioritizes ITRANS over Velthuis when ambiguous" do
       expect(described_class.ruby_detect_scheme("aa")).to eq(:itrans)
     end
     it "differentiates Kolkata from IAST" do
       expect(described_class.ruby_detect_scheme("bhō rājan")).to eq(:kolkata)
     end
-
-    it "has test for tamil"
   end
 
   if Sanscript::RUST_AVAILABLE
@@ -36,14 +40,18 @@ describe Sanscript::Detect do
           expect(described_class.rust_detect_scheme(scheme_data[name][:sentence])).to eq(name)
         end
       end
+      it "detects tamil from short marks" do
+        expect(described_class.rust_detect_scheme(scheme_data[:tamil][:short_marks])).to eq(:tamil)
+      end
+      it "detects tamil from short vowels" do
+        expect(described_class.rust_detect_scheme(scheme_data[:tamil][:short_vowels])).to eq(:tamil)
+      end
       it "prioritizes ITRANS over Velthuis when ambiguous" do
         expect(described_class.rust_detect_scheme("aa")).to eq(:itrans)
       end
       it "differentiates Kolkata from IAST" do
         expect(described_class.rust_detect_scheme("bhō rājan")).to eq(:kolkata)
       end
-
-      it "has test for tamil"
     end
   end
 end
