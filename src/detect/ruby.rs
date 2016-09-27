@@ -39,4 +39,5 @@ pub extern fn init_rusty_sanscript() {
   let m_rust = rb::define_module_under(&m_detect, "Rust");
   rb::define_method(&m_rust, "rust_detect_scheme",
     rbstr_detect_scheme as CallbackPtr, 1);
+  rb::extend_object(&m_detect, &m_rust);
 }

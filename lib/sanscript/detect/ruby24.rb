@@ -3,6 +3,7 @@
 module Sanscript
   module Detect
     # Module implementing `detect_scheme` method using Ruby 2.4's faster Regexp#match? method
+    # (Note: This module will only load if chosen by {Sanscript::Detect}.)
     module Ruby24
       # Attempts to detect the encoding scheme of the provided string.
       # Uses Ruby 2.4's Regexp#match? method for additional speed.

@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-# :nocov:
-begin
-  require "benchmark/ips"
-rescue LoadError
-  module Benchmark
-    def self.ips(*)
-      raise NotImplementedError, "You must install the `benchmark-ips` gem first."
+module Sanscript
+  # :nocov:
+  begin
+    require "benchmark/ips"
+  rescue LoadError
+    module ::Benchmark
+      def self.ips(*)
+        raise NotImplementedError, "You must install the `benchmark-ips` gem first."
+      end
     end
   end
-end
-# :nocov:
+  # :nocov:
 
-module Sanscript
   # Benchmark/testing module.
   module Benchmark
     module_function
