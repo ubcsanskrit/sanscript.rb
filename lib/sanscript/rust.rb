@@ -32,6 +32,8 @@ module Sanscript
         end
       end
       @rust_enabled = true
+    else
+      @rust_enabled = false
     end
     @rust_enabled
   end
