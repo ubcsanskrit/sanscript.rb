@@ -11,7 +11,7 @@ module Sanscript
                                  cargo_project_path: GEM_ROOT,
                                  ruby_project_path: GEM_ROOT)
     #:nocov:#
-    true
+    defined?(Sanscript::Detect::Rust) ? true : false
   rescue Fiddle::DLError
     false
     #:nocov:#
