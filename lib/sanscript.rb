@@ -10,11 +10,8 @@ require "sanscript/benchmark"
 
 # Sanscript.rb detection/transliteration module for Sanskrit.
 module Sanscript
-  # Whether Rust extension is available.
-  RUST_AVAILABLE = load_rust!
-
   # Load rust if available.
-  rust_enable!
+  RUST_AVAILABLE = load_rust!
 
   module_function
 
