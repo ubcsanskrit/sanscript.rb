@@ -4,7 +4,7 @@ module Sanscript
 
   # Attempts to load Rust native extension.
   # @return [bool] whether the extension loaded.
-  def load_rust!
+  def rust_load!
     return RUST_AVAILABLE if defined?(RUST_AVAILABLE)
     require "thermite/fiddle"
     Thermite::Fiddle.load_module("init_rusty_sanscript",
@@ -19,23 +19,19 @@ module Sanscript
 
   # @return [bool] the enabled status of the Rust extension
   def rust_enabled?
-    @rust_enabled
+    @rust_enabled ||= false
   end
 
   # Turns on Rust extension, if available.
   # @return [bool] the enabled status of the Rust extension
   def rust_enable!
-    if RUST_AVAILABLE
-      # :nocov:
-      Detect.singleton_class.class_eval do
-        alias_method :detect_scheme, :rust_detect_scheme
-      end
-      @rust_enabled = true
-    else
-      @rust_enabled = false
-      # :nocov:
+    return false unless RUST_AVAILABLE
+    # :nocov:
+    Detect.singleton_class.class_eval do
+      alias_method :detect_scheme, :rust_detect_scheme
     end
-    @rust_enabled
+    @rust_enabled = true
+    # :nocov:
   end
 
   # Turns off Rust native extension.
