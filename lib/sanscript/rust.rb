@@ -11,7 +11,7 @@ module Sanscript
                                  cargo_project_path: GEM_ROOT,
                                  ruby_project_path: GEM_ROOT)
     #:nocov:#
-    defined?(Sanscript::Detect::Rust) ? true : false
+    defined?(Sanscript::Rust) ? true : false
   rescue Fiddle::DLError
     false
     #:nocov:#
@@ -27,10 +27,8 @@ module Sanscript
   def rust_enable!
     if RUST_AVAILABLE
       # :nocov:
-      Detect.module_eval do
-        class << self
-          alias_method :detect_scheme, :rust_detect_scheme
-        end
+      Detect.singleton_class.class_eval do
+        alias_method :detect_scheme, :rust_detect_scheme
       end
       @rust_enabled = true
     else
@@ -43,10 +41,8 @@ module Sanscript
   # Turns off Rust native extension.
   # @return [bool] the enabled status of the Rust extension
   def rust_disable!
-    Detect.module_eval do
-      class << self
-        alias_method :detect_scheme, :ruby_detect_scheme
-      end
+    Detect.singleton_class.class_eval do
+      alias_method :detect_scheme, :ruby_detect_scheme
     end
     @rust_enabled = false
   end
