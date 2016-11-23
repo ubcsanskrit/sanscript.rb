@@ -36,8 +36,9 @@ fn rbstr_detect_scheme(_rself: Value, s: Value) -> Value {
 pub extern fn init_rusty_sanscript() {
   let m_sanscript = rb::define_module("Sanscript");
   let m_detect = rb::define_module_under(&m_sanscript, "Detect");
-  let m_rust = rb::define_module_under(&m_detect, "Rust");
-  rb::define_method(&m_rust, "rust_detect_scheme",
+  let m_rust = rb::define_module_under(&m_sanscript, "Rust");
+  let m_rust_detect = rb::define_module_under(&m_rust, "Detect");
+  rb::define_method(&m_rust_detect, "rust_detect_scheme",
     rbstr_detect_scheme as CallbackPtr, 1);
-  rb::extend_object(&m_detect, &m_rust);
+  rb::extend_object(&m_detect, &m_rust_detect);
 }
