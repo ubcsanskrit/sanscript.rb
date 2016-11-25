@@ -2,7 +2,7 @@ sudo: false
 language: ruby
 rvm:
   - 2.3.3
-  - 2.2
+  - 2.2.6
   - 2.4.0-preview3
 matrix:
   allow_failures:
@@ -11,7 +11,9 @@ matrix:
 before_install:
   - curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
   - gem install bundler -v 1.13.6
-script: PATH="$HOME/.cargo/bin:$PATH" bundle exec rake SPEC_OPTS="--format p"
+  - export PATH="$HOME/.cargo/bin:$PATH"
+script:
+  - bundle exec rake SPEC_OPTS="--format p"
 addons:
   code_climate:
     repo_token: b4319eb676f021fb9473aa342324abd74f58d146e174f3cdf57f103bab052f25
