@@ -8,7 +8,9 @@ matrix:
   allow_failures:
   - rvm: 2.4.0-preview3
 
-before_install: gem install bundler -v 1.13.6
+before_install:
+  - curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+  - gem install bundler -v 1.13.6
 script: bundle exec rake spec SPEC_OPTS="--format p"
 addons:
   code_climate:
