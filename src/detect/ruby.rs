@@ -1,33 +1,33 @@
 use detect;
 
 use rb;
-use rb::{CallbackPtr, Value};
+use rb::{CallbackPtr, Value, RB_NIL};
 
 // Initialize all of the Ruby-specific static variables.
 lazy_static! {
   // Lookup table for Ruby Results
   static ref RUBY_RESULTS: [Value; 16] = [
-    rb::RB_NIL,                    // 0
-    rb::str_to_sym("devanagari"),  // 1
-    rb::str_to_sym("bengali") ,    // 2
-    rb::str_to_sym("gurmukhi"),    // 3
-    rb::str_to_sym("gujarati"),    // 4
-    rb::str_to_sym("oriya"),       // 5
-    rb::str_to_sym("tamil"),       // 6
-    rb::str_to_sym("telugu"),      // 7
-    rb::str_to_sym("kannada"),     // 8
-    rb::str_to_sym("malayalam"),   // 9
-    rb::str_to_sym("iast"),        // 10
-    rb::str_to_sym("kolkata"),     // 11
-    rb::str_to_sym("itrans"),      // 12
-    rb::str_to_sym("slp1"),        // 13
-    rb::str_to_sym("velthuis"),    // 14
-    rb::str_to_sym("hk")           // 15
+    RB_NIL,                  // 0
+    str2sym!("devanagari"),  // 1
+    str2sym!("bengali") ,    // 2
+    str2sym!("gurmukhi"),    // 3
+    str2sym!("gujarati"),    // 4
+    str2sym!("oriya"),       // 5
+    str2sym!("tamil"),       // 6
+    str2sym!("telugu"),      // 7
+    str2sym!("kannada"),     // 8
+    str2sym!("malayalam"),   // 9
+    str2sym!("iast"),        // 10
+    str2sym!("kolkata"),     // 11
+    str2sym!("itrans"),      // 12
+    str2sym!("slp1"),        // 13
+    str2sym!("velthuis"),    // 14
+    str2sym!("hk")           // 15
   ];
 }
 
 fn rbstr_detect_scheme(_rself: Value, s: Value) -> Value {
-  let r_str = rb::rbstr_to_str(&s);
+  let r_str = rbstr2str!(&s);
   let result = detect::detect_scheme(r_str);
   return RUBY_RESULTS[result];
 }

@@ -2,6 +2,5 @@
 extern crate ruby_sys;
 extern crate regex;
 
-mod rb;
-// Exports a Sanscript::Detect::Rust module
+#[macro_use] mod rb;
 pub mod detect;
