@@ -27,8 +27,7 @@ lazy_static! {
 }
 
 fn rbstr_detect_scheme(_rself: Value, s: Value) -> Value {
-  let r_str = rbstr2str!(&s);
-  let result = detect::detect_scheme(r_str);
+  let result = detect::detect_scheme(&rbstr2str!(&s));
   return RUBY_RESULTS[result];
 }
 
