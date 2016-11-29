@@ -26,12 +26,13 @@ macro_rules! rbstr2str {
   }
 }
 
+macro_rules! str2rbid {
+  ($s:expr) => { ::ruby_sys::util::rb_intern(str2cstrp!($s)) }
+}
+
 macro_rules! str2sym {
   ($s:expr) => {
-    unsafe {
-      let id = ::ruby_sys::util::rb_intern(str2cstrp!($s));
-      ::ruby_sys::symbol::rb_id2sym(id)
-    }
+    unsafe { ::ruby_sys::symbol::rb_id2sym(str2rbid!($s)) }
   }
 }
 
