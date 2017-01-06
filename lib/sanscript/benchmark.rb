@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Sanscript
-  # :nocov:
   begin
     require "benchmark/ips"
   rescue LoadError
@@ -11,7 +10,6 @@ module Sanscript
       end
     end
   end
-  # :nocov:
 
   # Benchmark/testing module.
   module Benchmark

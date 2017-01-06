@@ -61,7 +61,6 @@ module Sanscript
     #   @return [Symbol, nil] the Symbol of the scheme, or nil if no match
 
     # @!visibility private
-    # :nocov:
     if Regexp.method_defined?(:match?)
       require "sanscript/detect/ruby24"
       extend Ruby24
@@ -69,7 +68,6 @@ module Sanscript
       require "sanscript/detect/ruby2x"
       extend Ruby2x
     end
-    # :nocov:
     class << self
       alias detect_scheme ruby_detect_scheme
     end

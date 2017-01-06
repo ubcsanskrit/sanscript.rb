@@ -10,11 +10,9 @@ module Sanscript
     Thermite::Fiddle.load_module("init_rusty_sanscript",
                                  cargo_project_path: GEM_ROOT,
                                  ruby_project_path: GEM_ROOT)
-    #:nocov:#
     defined?(Sanscript::Rust) ? true : false
   rescue Fiddle::DLError
     false
-    #:nocov:#
   end
 
   # @return [bool] the enabled status of the Rust extension
@@ -26,12 +24,10 @@ module Sanscript
   # @return [bool] the enabled status of the Rust extension
   def rust_enable!
     return false unless RUST_AVAILABLE
-    # :nocov:
     Detect.singleton_class.class_eval do
       alias_method :detect_scheme, :rust_detect_scheme
     end
     @rust_enabled = true
-    # :nocov:
   end
 
   # Turns off Rust native extension.
