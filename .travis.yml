@@ -1,15 +1,24 @@
 sudo: false
 language: ruby
 rvm:
+  - 2.4.0
   - 2.3.3
-  - 2.2
-  - 2.4.0-preview3
+  - 2.2.6
+  - ruby-head
+env:
+  - RUST=yes
+  - RUST=no
+
 matrix:
   allow_failures:
-  - rvm: 2.4.0-preview3
+  - rvm: ruby-head
 
-before_install: gem install bundler -v 1.13.6
-script: bundle exec rake spec SPEC_OPTS="--format p"
+before_install:
+  - if [[ "$RUST" == "yes" ]]; then curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable; export PATH="$HOME/.cargo/bin:$PATH"; fi
+
+script:
+  - if [[ "$RUST" == "yes" ]]; then bundle exec rake SPEC_OPTS="--format p"; else bundle exec rake spec SPEC_OPTS="--format p"; fi
+
 addons:
   code_climate:
     repo_token: b4319eb676f021fb9473aa342324abd74f58d146e174f3cdf57f103bab052f25

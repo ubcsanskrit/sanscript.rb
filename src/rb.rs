@@ -1,47 +1,51 @@
-use std::ffi::{CStr, CString};
-
-use ruby_sys::{class, string, symbol, util};
+use ruby_sys::class;
 use ruby_sys::value::RubySpecialConsts::Nil;
 
 pub use ruby_sys::types::{CallbackPtr, Value};
 pub const RB_NIL: Value = Value { value: Nil as usize };
 
 //
-// Helper functions for dealing with Ruby and CStrings
+// Helper functions/macros for dealing with Ruby and CStrings
 //
 
-fn str_to_cstr(s: &str) -> CString {
-  CString::new(s).unwrap()
+macro_rules! str2cstr {
+  ($s:expr) => { ::std::ffi::CString::new($s).unwrap() }
 }
 
-pub fn rbstr_to_str<'a>(s: *const Value) -> &'a str {
-  unsafe {
-    let c_strp = string::rb_string_value_cstr(s);
-    CStr::from_ptr(c_strp).to_str().unwrap()
+macro_rules! str2cstrp {
+  ($s:expr) => { str2cstr!($s).as_ptr() }
+}
+
+macro_rules! rbstr2cstrp {
+  ($s:expr) => { ::ruby_sys::string::rb_string_value_cstr($s) }
+}
+
+macro_rules! rbstr2str {
+  ($s:expr) => {
+    unsafe { ::std::ffi::CStr::from_ptr(rbstr2cstrp!($s)).to_str().unwrap() }
   }
 }
 
-pub fn str_to_sym(s: &str) -> Value {
-  let c_str = str_to_cstr(s);
-  unsafe {
-    let id = util::rb_intern(c_str.as_ptr());
-    symbol::rb_id2sym(id)
+macro_rules! str2rbid {
+  ($s:expr) => { ::ruby_sys::util::rb_intern(str2cstrp!($s)) }
+}
+
+macro_rules! str2sym {
+  ($s:expr) => {
+    unsafe { ::ruby_sys::symbol::rb_id2sym(str2rbid!($s)) }
   }
 }
 
 pub fn define_module(name: &str) -> Value {
-  let c_str = str_to_cstr(name);
-  unsafe { class::rb_define_module(c_str.as_ptr()) }
+  unsafe { class::rb_define_module(str2cstrp!(name)) }
 }
 
 pub fn define_module_under(parent: &Value, name: &str) -> Value {
-  let c_str = str_to_cstr(name);
-  unsafe { class::rb_define_module_under(*parent, c_str.as_ptr()) }
+  unsafe { class::rb_define_module_under(*parent, str2cstrp!(name)) }
 }
 
 pub fn define_method(module: &Value, name: &str, method: CallbackPtr, argc: i32) {
-  let c_str = str_to_cstr(name);
-  unsafe { class::rb_define_method(*module, c_str.as_ptr(), method, argc) }
+  unsafe { class::rb_define_method(*module, str2cstrp!(name), method, argc) }
 }
 
 pub fn extend_object(object: &Value, module: &Value) {
