@@ -3,7 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/sanscript.svg)](https://badge.fury.io/rb/sanscript)
 [![Dependency Status](https://gemnasium.com/badges/github.com/ubcsanskrit/sanscript.rb.svg)](https://gemnasium.com/github.com/ubcsanskrit/sanscript.rb)
 [![Build Status](https://travis-ci.org/ubcsanskrit/sanscript.rb.svg?branch=master)](https://travis-ci.org/ubcsanskrit/sanscript.rb)
-[![Test Coverage](https://codeclimate.com/github/ubcsanskrit/sanscript.rb/badges/coverage.svg)](https://codeclimate.com/github/ubcsanskrit/sanscript.rb/coverage)
+[![Coverage Status](https://coveralls.io/repos/github/ubcsanskrit/sanscript.rb/badge.svg?branch=master)](https://coveralls.io/github/ubcsanskrit/sanscript.rb?branch=master)
 [![Code Climate](https://codeclimate.com/github/ubcsanskrit/sanscript.rb/badges/gpa.svg)](https://codeclimate.com/github/ubcsanskrit/sanscript.rb)
 [![Inline docs](http://inch-ci.org/github/ubcsanskrit/sanscript.rb.svg?branch=master)](http://inch-ci.org/github/ubcsanskrit/sanscript.rb)
 

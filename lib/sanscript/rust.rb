@@ -12,9 +12,7 @@ module Sanscript
                                  ruby_project_path: GEM_ROOT)
     defined?(Sanscript::Rust) ? true : false
   rescue Fiddle::DLError
-    #:nocov:
     false
-    #:nocov:
   end
 
   # @return [bool] the enabled status of the Rust extension
