@@ -4,11 +4,13 @@ module Sanscript
   begin
     require "benchmark/ips"
   rescue LoadError
+    #:nocov:
     module ::Benchmark
       def self.ips(*)
         raise NotImplementedError, "You must install the `benchmark-ips` gem first."
       end
     end
+    #:nocov:
   end
 
   # Benchmark/testing module.
