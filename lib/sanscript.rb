@@ -25,9 +25,11 @@ module Sanscript
     Detect.detect_scheme(text)
   end
 
-  # Transliterates a string, optionally detecting its source-scheme first.
+  # Transliterates a string from one scheme to another.
+  # Proxy for {Transliterate.transliterate}
   #
   # @overload transliterate(text, from, to, **opts)
+  #   Transliterates a string from one scheme to another.
   #   @param text [String] the String to transliterate
   #   @param from [Symbol, nil] the name of the scheme to transliterate from, or Nil to detect
   #   @param to [Symbol] the name of the scheme to transliterate to
@@ -40,6 +42,7 @@ module Sanscript
   #   @raise [SchemeNotSupportedError] if a provided transliteration scheme is not supported
   #
   # @overload transliterate(text, to, **opts)
+  #   Transliterates a string, detecting its source-scheme first.
   #   @param text [String] the String to transliterate
   #   @param to [Symbol] the name of the scheme to transliterate to
   #   @option opts [Symbol] :default_scheme a default scheme to fall-back to if detection fails
