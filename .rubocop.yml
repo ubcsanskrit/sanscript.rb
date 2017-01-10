@@ -1,6 +1,5 @@
-require: rubocop-rspec
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.3
 
 # Metrics
 Metrics/AbcSize:
@@ -100,3 +99,9 @@ Style/TrailingCommaInLiteral:
 Style/TrivialAccessors:
   ExactNameMatch: true
   AllowPredicates: true
+
+# RSpec
+require: rubocop-rspec
+
+RSpec/NestedGroups:
+  MaxNesting: 3
