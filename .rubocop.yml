@@ -1,4 +1,3 @@
-require: rubocop-rspec
 AllCops:
   TargetRubyVersion: 2.3
 
@@ -16,6 +15,10 @@ Metrics/BlockNesting:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#three-is-the-number-thou-shalt-count'
   Enabled: true
   Max: 4
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
 
 Metrics/ClassLength:
   Description: 'Avoid classes longer than 250 lines of code.'
@@ -96,3 +99,9 @@ Style/TrailingCommaInLiteral:
 Style/TrivialAccessors:
   ExactNameMatch: true
   AllowPredicates: true
+
+# RSpec
+require: rubocop-rspec
+
+RSpec/NestedGroups:
+  MaxNesting: 3
