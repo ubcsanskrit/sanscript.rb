@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Sanscript
-  using ::Ragabash::Refinements
   # Error for when transliteration scheme is not supported.
   class SchemeNotSupportedError < StandardError
     def initialize(scheme = :unknown)

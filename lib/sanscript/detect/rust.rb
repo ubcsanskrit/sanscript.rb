@@ -3,7 +3,7 @@
 module Sanscript
   module Detect
     # Module stub for implementing `detect_scheme` method using Rust native extension.
-    # (Note: This module will only exist if the native extension is available and {Sanscript.load_rust!} has been run.)
+    # (Note: This module will only exist if the native extension is available and {Sanscript.rust_load!} has been run.)
     module Rust
       # @!method rust_detect_scheme(text)
       # Attempts to detect the encoding scheme of the provided string.

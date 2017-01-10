@@ -13,3 +13,11 @@ begin
 rescue LoadError
   nil
 end
+
+# Ensure missing Rubocop development dependency doesn't kill gem install.
+begin
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new
+rescue LoadError
+  nil
+end
