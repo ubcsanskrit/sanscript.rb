@@ -195,14 +195,14 @@ module Sanscript
               token_lengths.push(f.length)
               token_lengths.concat(alts.map(&:length))
 
-              if group == :vowel_marks || group == :virama
+              if group == :vowel_marks || group == :virama # rubocop:disable MultipleComparison
                 marks[f] = t
                 alts.each { |alt| marks[alt] = t }
               else
                 letters[f] = t
                 alts.each { |alt| letters[alt] = t }
 
-                if group == :consonants || group == :other
+                if group == :consonants || group == :other # rubocop:disable MultipleComparison
                   consonants[f] = t
                   alts.each { |alt| consonants[alt] = t }
                 end
@@ -227,7 +227,7 @@ module Sanscript
       # @param data [String] the string to transliterate
       # @param map [Hash] map data generated from {#make_map}
       # @return [String] the transliterated string
-      def transliterate_roman(data, map, options = {})
+      def transliterate_roman(data, map, options = {}) # rubocop:disable MethodLength, CyclomaticComplexity
         data = data.to_str.chars
         buf = []
         token_buffer = []
@@ -239,7 +239,7 @@ module Sanscript
         until data.empty? && token_buffer.empty?
           # Match all token substrings to our map.
           token = data[0, max_token_length].join("")
-          max_token_length.downto(1) do |j|
+          max_token_length.downto(1) do |j| # rubocop:disable BlockLength
             token = token[0, j] unless j == max_token_length
             if j == 2
               if !control_char && token == "##"
@@ -302,7 +302,7 @@ module Sanscript
       # @param data [String] the string to transliterate
       # @param map [Hash] map data generated from {#make_map}
       # @return [String] the transliterated string
-      def transliterate_brahmic(data, map)
+      def transliterate_brahmic(data, map) # rubocop:disable MethodLength, CyclomaticComplexity
         data = data.to_str.chars
         buf = []
         had_roman_consonant = false

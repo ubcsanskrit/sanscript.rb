@@ -104,4 +104,4 @@ Style/TrivialAccessors:
 require: rubocop-rspec
 
 RSpec/NestedGroups:
-  MaxNesting: 3
+  Max: 3
