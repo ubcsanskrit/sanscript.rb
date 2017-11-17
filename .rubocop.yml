@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.2
 
 # Metrics
 Metrics/AbcSize:
@@ -102,6 +102,9 @@ Style/TrivialAccessors:
 
 # RSpec
 require: rubocop-rspec
+
+RSpec/ContextWording:
+  Enabled: false
 
 RSpec/NestedGroups:
   Max: 3

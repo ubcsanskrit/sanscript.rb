@@ -128,7 +128,7 @@ module Sanscript
       add_roman_scheme(:itrans_dravidian, itrans_dravidian)
 
       # ensure deep freeze on alternates
-      @all_alternates.each { |_, scheme| scheme.deep_freeze }
+      @all_alternates.each_value(&:deep_freeze)
     end
 
     # Transliterate from one script to another.

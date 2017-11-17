@@ -6,6 +6,7 @@ module Sanscript
   # Attempts to load Rust native extension.
   # @return [bool] whether the extension loaded.
   def rust_load!
+    # :nocov:
     return RUST_AVAILABLE if defined?(RUST_AVAILABLE)
     require "thermite/fiddle"
     Thermite::Fiddle.load_module("init_rusty_sanscript",
@@ -14,6 +15,7 @@ module Sanscript
     defined?(Sanscript::Rust) ? true : false
   rescue Fiddle::DLError
     false
+    # :nocov:
   end
 
   # @return [bool] the enabled status of the Rust extension
