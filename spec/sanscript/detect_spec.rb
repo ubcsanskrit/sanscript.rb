@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "spec_helper"
 
 describe Sanscript::Detect do
@@ -9,11 +10,17 @@ describe Sanscript::Detect do
 
   context ".ruby_detect_scheme" do
     scheme_names.each do |name|
-      it "detects #{name} from sample marks" do
-        expect(described_class.ruby_detect_scheme(scheme_data[name][:marks])).to eq(name)
+      it "detects #{name} from sample marks (nfc)" do
+        expect(described_class.ruby_detect_scheme(scheme_data[name][:marks].unicode_normalize(:nfc))).to eq(name)
       end
-      it "detects #{name} from sample sentence" do
-        expect(described_class.ruby_detect_scheme(scheme_data[name][:sentence])).to eq(name)
+      it "detects #{name} from sample sentence (nfc)" do
+        expect(described_class.ruby_detect_scheme(scheme_data[name][:sentence].unicode_normalize(:nfc))).to eq(name)
+      end
+      it "detects #{name} from sample marks (nfd)" do
+        expect(described_class.ruby_detect_scheme(scheme_data[name][:marks].unicode_normalize(:nfd))).to eq(name)
+      end
+      it "detects #{name} from sample sentence (nfd)" do
+        expect(described_class.ruby_detect_scheme(scheme_data[name][:sentence].unicode_normalize(:nfd))).to eq(name)
       end
     end
     it "detects tamil from short marks" do
@@ -25,19 +32,28 @@ describe Sanscript::Detect do
     it "prioritizes ITRANS over Velthuis when ambiguous" do
       expect(described_class.ruby_detect_scheme("aa")).to eq(:itrans)
     end
-    it "differentiates Kolkata from IAST" do
-      expect(described_class.ruby_detect_scheme("bhō rājan")).to eq(:kolkata)
+    it "differentiates Kolkata from IAST (nfc)" do
+      expect(described_class.ruby_detect_scheme("bhō rājan".unicode_normalize(:nfc))).to eq(:kolkata)
+    end
+    it "differentiates Kolkata from IAST (nfd)" do
+      expect(described_class.ruby_detect_scheme("bhō rājan".unicode_normalize(:nfd))).to eq(:kolkata)
     end
   end
 
   if Sanscript::RUST_AVAILABLE
     context ".rust_detect_scheme" do
       scheme_names.each do |name|
-        it "detects #{name} from sample marks" do
-          expect(described_class.rust_detect_scheme(scheme_data[name][:marks])).to eq(name)
+        it "detects #{name} from sample marks (nfc)" do
+          expect(described_class.rust_detect_scheme(scheme_data[name][:marks].unicode_normalize(:nfc))).to eq(name)
         end
-        it "detects #{name} from sample sentence" do
-          expect(described_class.rust_detect_scheme(scheme_data[name][:sentence])).to eq(name)
+        it "detects #{name} from sample sentence (nfc)" do
+          expect(described_class.rust_detect_scheme(scheme_data[name][:sentence].unicode_normalize(:nfc))).to eq(name)
+        end
+        it "detects #{name} from sample marks (nfd)" do
+          expect(described_class.rust_detect_scheme(scheme_data[name][:marks].unicode_normalize(:nfd))).to eq(name)
+        end
+        it "detects #{name} from sample sentence (nfd)" do
+          expect(described_class.rust_detect_scheme(scheme_data[name][:sentence].unicode_normalize(:nfd))).to eq(name)
         end
       end
       it "detects tamil from short marks" do
@@ -49,8 +65,11 @@ describe Sanscript::Detect do
       it "prioritizes ITRANS over Velthuis when ambiguous" do
         expect(described_class.rust_detect_scheme("aa")).to eq(:itrans)
       end
-      it "differentiates Kolkata from IAST" do
-        expect(described_class.rust_detect_scheme("bhō rājan")).to eq(:kolkata)
+      it "differentiates Kolkata from IAST (nfc)" do
+        expect(described_class.rust_detect_scheme("bhō rājan".unicode_normalize(:nfc))).to eq(:kolkata)
+      end
+      it "differentiates Kolkata from IAST (nfd)" do
+        expect(described_class.rust_detect_scheme("bhō rājan".unicode_normalize(:nfd))).to eq(:kolkata)
       end
     end
   end

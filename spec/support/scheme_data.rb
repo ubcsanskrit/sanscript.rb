@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.shared_context "scheme_data" do
   let(:scheme_data) do
     {

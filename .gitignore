@@ -8,6 +8,7 @@
 /spec/reports/
 /tmp/
 /lib/librusty_sanscript.*
+/lib/rusty_sanscript.*
 /target
 mkmf.log
 Cargo.lock

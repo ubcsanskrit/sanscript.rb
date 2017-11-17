@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "sanscript/detect/constants"
 
 module Sanscript
@@ -6,11 +7,13 @@ module Sanscript
   # Developed from code available @ https://github.com/sanskrit/detect.js
   module Detect
     if Regexp.method_defined?(:match?)
+      # :nocov:
       require "sanscript/detect/ruby24"
       extend Ruby24
     else
       require "sanscript/detect/ruby2x"
       extend Ruby2x
+      # :nocov:
     end
 
     # @!method detect_scheme(text)

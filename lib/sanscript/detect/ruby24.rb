@@ -14,11 +14,8 @@ module Sanscript
         text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
 
         # Brahmic schemes are all within a specific range of code points.
-        if RE_BRAHMIC_RANGE.match?(text)
-          RE_BRAHMIC_SCRIPTS.each do |script, regex|
-            return script if regex.match?(text)
-          end
-        end
+        brahmic_char = text[RE_BRAHMIC_RANGE]
+        return BRAHMIC_SCRIPTS_ORDER[(brahmic_char.ord - 0x0900) / 0x80] if brahmic_char
 
         # Romanizations
         if RE_IAST_OR_KOLKATA_ONLY.match?(text)
