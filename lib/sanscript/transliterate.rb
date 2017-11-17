@@ -128,7 +128,7 @@ module Sanscript
       add_roman_scheme(:itrans_dravidian, itrans_dravidian)
 
       # ensure deep freeze on alternates
-      @all_alternates.each_value(&:deep_freeze)
+      @all_alternates.each_value { |alternates| alternates.deep_freeze } # rubocop:disable Style/SymbolProc
     end
 
     # Transliterate from one script to another.
