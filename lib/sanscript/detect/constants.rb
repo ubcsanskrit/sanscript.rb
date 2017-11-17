@@ -8,18 +8,8 @@ module Sanscript
     # between Devanagari and Malayalam.
     RE_BRAHMIC_RANGE = /[\u0900-\u0d7f]/
 
-    # Match each individual Brahmic script.
-    RE_BRAHMIC_SCRIPTS = {
-      devanagari: /\p{Devanagari}/,
-      bengali: /\p{Bengali}/,
-      gurmukhi: /\p{Gurmukhi}/,
-      gujarati: /\p{Gujarati}/,
-      oriya: /\p{Oriya}/,
-      tamil: /\p{Tamil}/,
-      telugu: /\p{Telugu}/,
-      kannada: /\p{Kannada}/,
-      malayalam: /\p{Malayalam}/,
-    }.freeze
+    # The order of individual brahmic scripts in 128 character unicode blocks.
+    BRAHMIC_SCRIPTS_ORDER = %i[devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam].freeze
 
     # Match on special Roman characters
     RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|[aiueoAIUEO]\u0304|[rlRL]\u0323\u0304?|[mhtdMHTD]\u0323|[nN][\u0307\u0303\u0323]|[sS][\u0301\u0323]|[lL]\u0331/
@@ -45,7 +35,7 @@ module Sanscript
     # Match ##...## or {#...#} control blocks.
     RE_CONTROL_BLOCK = /(?<!\\)##.*?(?<!\\)##|(?<!\\)\{#.*?(?<!\\)#\}/
 
-    private_constant :RE_BRAHMIC_RANGE, :RE_BRAHMIC_SCRIPTS, :RE_IAST_OR_KOLKATA_ONLY,
+    private_constant :RE_BRAHMIC_RANGE, :BRAHMIC_SCRIPTS_ORDER, :RE_IAST_OR_KOLKATA_ONLY,
                      :RE_KOLKATA_ONLY, :RE_ITRANS_ONLY, :RE_SLP1_ONLY, :RE_VELTHUIS_ONLY,
                      :RE_ITRANS_OR_VELTHUIS_ONLY, :RE_HARVARD_KYOTO, :RE_CONTROL_BLOCK
   end
