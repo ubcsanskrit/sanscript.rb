@@ -17,10 +17,10 @@ lazy_static! {
   static ref RE_BRAHMIC_RANGE: Regex = Regex::new(r"[\x{0900}-\x{0D7F}]").unwrap();
 
   // Match on special Roman characters
-  static ref RE_IAST_OR_KOLKATA_ONLY: Regex = Regex::new(r"(?i)[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻ]").unwrap();
+  static ref RE_IAST_OR_KOLKATA_ONLY: Regex = Regex::new(r"[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|[aiueoAIUEO]\x{0304}|[rlRL]\x{0323}\x{0304}?|[mhtdMHTD]\x{0323}|[nN][\x{0307}\x{0303}\x{0323}]|[sS][\x{0301}\x{0323}]|[lL]\x{0331}").unwrap();
 
   // Match on Kolkata-specific Roman characters
-  static ref RE_KOLKATA_ONLY: Regex = Regex::new(r"(?i)[ēō]").unwrap();
+  static ref RE_KOLKATA_ONLY: Regex = Regex::new(r"[ēōĒŌ]|[eoEO]\x{0304}").unwrap();
 
   // Match on ITRANS-only
   static ref RE_ITRANS_ONLY: Regex = Regex::new(r"ee|oo|\^[iI]|RR[iI]|L[iI]|~N|N\^|Ch|chh|JN|sh|Sh|\.a").unwrap();

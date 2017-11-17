@@ -22,10 +22,10 @@ module Sanscript
     }.freeze
 
     # Match on special Roman characters
-    RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻ]/i
+    RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|[aiueoAIUEO]\u0304|[rlRL]\u0323\u0304?|[mhtdMHTD]\u0323|[nN][\u0307\u0303\u0323]|[sS][\u0301\u0323]|[lL]\u0331/
 
     # Match on Kolkata-specific Roman characters
-    RE_KOLKATA_ONLY = /[ēō]/i
+    RE_KOLKATA_ONLY = /[ēōĒŌ]|[eoEO]\u0304/
 
     # Match on ITRANS-only
     RE_ITRANS_ONLY = /ee|oo|\^[iI]|RR[iI]|L[iI]|~N|N\^|Ch|chh|JN|sh|Sh|\.a/
