@@ -27,17 +27,21 @@ lazy_static! {
 }
 
 fn rbstr_detect_scheme(_rself: Value, s: Value) -> Value {
-  let result = detect::detect_scheme(&rbstr2str!(&s));
-  return RUBY_RESULTS[result];
+    let result = detect::detect_scheme(&rb::rbstr2str(s));
+    RUBY_RESULTS[result]
 }
 
 #[no_mangle]
-pub extern fn init_rusty_sanscript() {
-  let m_sanscript = rb::define_module("Sanscript");
-  let m_detect = rb::define_module_under(&m_sanscript, "Detect");
-  let m_rust = rb::define_module_under(&m_sanscript, "Rust");
-  let m_rust_detect = rb::define_module_under(&m_rust, "Detect");
-  rb::define_method(&m_rust_detect, "rust_detect_scheme",
-    rbstr_detect_scheme as CallbackPtr, 1);
-  rb::extend_object(&m_detect, &m_rust_detect);
+pub extern "C" fn init_rusty_sanscript() {
+    let m_sanscript = rb::define_module("Sanscript");
+    let m_detect = rb::define_module_under(m_sanscript, "Detect");
+    let m_rust = rb::define_module_under(m_sanscript, "Rust");
+    let m_rust_detect = rb::define_module_under(m_rust, "Detect");
+    rb::define_method(
+        m_rust_detect,
+        "rust_detect_scheme",
+        rbstr_detect_scheme as CallbackPtr,
+        1,
+    );
+    rb::extend_object(m_detect, m_rust_detect);
 }

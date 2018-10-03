@@ -9,14 +9,14 @@ module Sanscript
       #
       # @param text [String] a string of Sanskrit text
       # @return [Symbol, nil] the Symbol of the scheme, or nil if no match
-      def ruby_detect_scheme(text)
+      def ruby_detect_scheme(text) # rubocop:disable AbcSize, PerceivedComplexity
         text = text.to_str.gsub(RE_CONTROL_BLOCK, "")
-
-        # rubocop:disable Style/CaseEquality
 
         # Brahmic schemes are all within a specific range of code points.
         brahmic_char = text[RE_BRAHMIC_RANGE]
         return BRAHMIC_SCRIPTS_ORDER[(brahmic_char.ord - 0x0900) / 0x80] if brahmic_char
+
+        # rubocop:disable Style/CaseEquality
 
         # Romanizations
         if RE_IAST_OR_KOLKATA_ONLY === text
@@ -33,6 +33,7 @@ module Sanscript
         elsif RE_HARVARD_KYOTO === text
           :hk
         end
+        # rubocop:enable Style/CaseEquality
       end
     end
   end

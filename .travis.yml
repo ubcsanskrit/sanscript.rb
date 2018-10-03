@@ -1,17 +1,12 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.4.2
-  - 2.3.5
-  - 2.2.8
-  - ruby-head
+  - 2.5.1
+  - 2.4.4
+  - 2.3.7
 env:
   - RUST=yes
   - RUST=no
-
-matrix:
-  allow_failures:
-  - rvm: ruby-head
 
 before_install:
   - if [[ "$RUST" == "yes" ]]; then curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable; export PATH="$HOME/.cargo/bin:$PATH"; fi

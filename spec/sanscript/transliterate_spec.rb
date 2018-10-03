@@ -59,31 +59,37 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("ब", from, to)).to eq("ব")
       end
     end
+
     context "to Gujarati" do
       to = :gujarati
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Gurmukhi" do
       to = :gurmukhi
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Kannada" do
       to = :kannada
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Malayalam" do
       to = :malayalam
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Oriya" do
       to = :oriya
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Telugu" do
       to = :telugu
       include_examples("letter tests", from, to)
@@ -101,6 +107,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("wwटww", from, to)).to eq("wwṭaww")
       end
     end
+
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
@@ -112,6 +119,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("wwकww", from, to)).to eq("wwkaww")
       end
     end
+
     context "to SLP1" do
       to = :slp1
       include_examples("letter tests", from, to)
@@ -123,11 +131,13 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("ZZटZZ", from, to)).to eq("ZZwaZZ")
       end
     end
+
     context "to ITRANS" do
       to = :itrans
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Velthuis" do
       to = :velthuis
       include_examples("letter tests", from, to)
@@ -145,6 +155,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("narīxiti", from, to)).to eq("नरीxइति")
       end
     end
+
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
@@ -153,6 +164,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("tāmxiti", from, to)).to eq("tAmxiti")
       end
     end
+
     context "to SLP1" do
       to = :slp1
       include_examples("letter tests", from, to)
@@ -161,11 +173,13 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("ṣauZiti", from, to)).to eq("zOZiti")
       end
     end
+
     context "to ITRANS" do
       to = :itrans
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Velthuis" do
       to = :velthuis
       include_examples("letter tests", from, to)
@@ -183,6 +197,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("naraxiti", from, to)).to eq("नरxइति")
       end
     end
+
     context "to IAST" do
       to = :iast
       include_examples("letter tests", from, to)
@@ -191,6 +206,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("tAmxiti", from, to)).to eq("tāmxiti")
       end
     end
+
     context "to SLP1" do
       to = :slp1
       include_examples("letter tests", from, to)
@@ -199,11 +215,13 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("tauZiti", from, to)).to eq("tOZiti")
       end
     end
+
     context "to ITRANS" do
       to = :itrans
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Velthuis" do
       to = :velthuis
       include_examples("letter tests", from, to)
@@ -221,6 +239,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("narIZiti", from, to)).to eq("नरीZइति")
       end
     end
+
     context "to IAST" do
       to = :iast
       include_examples("letter tests", from, to)
@@ -229,6 +248,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("zOZiti", from, to)).to eq("ṣauZiti")
       end
     end
+
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
@@ -237,11 +257,13 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("RAmZiti", from, to)).to eq("NAmZiti")
       end
     end
+
     context "to ITRANS" do
       to = :itrans
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Velthuis" do
       to = :velthuis
       include_examples("letter tests", from, to)
@@ -256,21 +278,25 @@ describe Sanscript::Transliterate do
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to IAST" do
       to = :iast
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to SLP1" do
       to = :slp1
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Velthuis" do
       to = :velthuis
       include_examples("letter tests", from, to)
@@ -285,21 +311,25 @@ describe Sanscript::Transliterate do
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to IAST" do
       to = :iast
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to Harvard-Kyoto" do
       to = :hk
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to SLP1" do
       to = :slp1
       include_examples("letter tests", from, to)
       include_examples("text tests", from, to)
     end
+
     context "to ITRANS" do
       to = :itrans
       include_examples("letter tests", from, to)
@@ -333,6 +363,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("अ#क्षर", from, to)).to eq("a#kSara")
       end
     end
+
     context "Sanscript style: From roman" do
       to = :devanagari
       from = :hk
@@ -384,6 +415,7 @@ describe Sanscript::Transliterate do
         expect(described_class.transliterate("अ{क्षर", from, to)).to eq("a{kSara")
       end
     end
+
     context "Dphil style: From roman" do
       to = :devanagari
       from = :hk

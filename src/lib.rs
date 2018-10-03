@@ -1,8 +1,10 @@
-#[macro_use] extern crate lazy_static;
-extern crate ruby_sys;
+#[macro_use]
+extern crate lazy_static;
 extern crate regex;
+extern crate ruby_sys;
 
-#[macro_use] mod rb;
+#[macro_use]
+mod rb;
 pub mod detect;
 
 #[cfg(test)]
