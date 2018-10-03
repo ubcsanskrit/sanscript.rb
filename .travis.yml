@@ -13,7 +13,3 @@ before_install:
 
 script:
   - if [[ "$RUST" == "yes" ]]; then bundle exec rake SPEC_OPTS="--format p"; else bundle exec rake spec SPEC_OPTS="--format p"; fi
-
-addons:
-  code_climate:
-    repo_token: b4319eb676f021fb9473aa342324abd74f58d146e174f3cdf57f103bab052f25
