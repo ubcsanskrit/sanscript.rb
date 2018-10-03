@@ -2,7 +2,6 @@
 
 require "sanscript/transliterate/schemes"
 module Sanscript
-  using ::Ragabash::Refinements
   # Sanskrit transliteration module.
   # Derived from Sanscript (https://github.com/sanskrit/sanscript.js), which is
   # released under the MIT and GPL Licenses.
@@ -39,6 +38,8 @@ module Sanscript
 
     module_function
 
+    # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
+
     # Check whether the given scheme encodes Brahmic Sanskrit.
     #
     # @param name [Symbol] the scheme name
@@ -73,7 +74,7 @@ module Sanscript
     def add_brahmic_scheme(name, scheme)
       name = name.to_sym
       scheme = scheme.deep_dup
-      @schemes[name] = scheme.deep_freeze
+      @schemes[name] = IceNine.deep_freeze(scheme)
       @brahmic_schemes.add(name)
       @scheme_names.add(name)
       scheme
@@ -89,7 +90,7 @@ module Sanscript
       name = name.to_sym
       scheme = scheme.deep_dup
       scheme[:vowel_marks] = scheme[:vowels][1..-1] unless scheme.key?(:vowel_marks)
-      @schemes[name] = scheme.deep_freeze
+      @schemes[name] = IceNine.deep_freeze(scheme)
       @roman_schemes.add(name)
       @scheme_names.add(name)
       scheme
@@ -128,7 +129,7 @@ module Sanscript
       add_roman_scheme(:itrans_dravidian, itrans_dravidian)
 
       # ensure deep freeze on alternates
-      @all_alternates.each_value { |alternates| alternates.deep_freeze } # rubocop:disable Style/SymbolProc
+      @all_alternates.each_value { |alternates| IceNine.deep_freeze(alternates) }
     end
 
     # Transliterate from one script to another.
@@ -210,15 +211,15 @@ module Sanscript
             end
           end
 
-          {
+          IceNine.deep_freeze(
             consonants: consonants,
             from_roman?: roman_scheme?(from),
             letters: letters,
             marks: marks,
             max_token_length: token_lengths.max,
             to_roman?: roman_scheme?(to),
-            virama: to_scheme[:virama].first,
-          }.deep_freeze
+            virama: to_scheme[:virama].first
+          )
         end
       end
 
@@ -227,7 +228,7 @@ module Sanscript
       # @param data [String] the string to transliterate
       # @param map [Hash] map data generated from {#make_map}
       # @return [String] the transliterated string
-      def transliterate_roman(data, map, options = {}) # rubocop:disable MethodLength, CyclomaticComplexity
+      def transliterate_roman(data, map, options = {})
         data = data.to_str.chars
         buf = []
         token_buffer = []
@@ -302,7 +303,7 @@ module Sanscript
       # @param data [String] the string to transliterate
       # @param map [Hash] map data generated from {#make_map}
       # @return [String] the transliterated string
-      def transliterate_brahmic(data, map) # rubocop:disable MethodLength, CyclomaticComplexity
+      def transliterate_brahmic(data, map)
         data = data.to_str.chars
         buf = []
         had_roman_consonant = false
@@ -369,5 +370,6 @@ module Sanscript
         buf.join("")
       end
     end
+    # rubocop:enable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
   end
 end

@@ -12,7 +12,10 @@ module Sanscript
     BRAHMIC_SCRIPTS_ORDER = %i[devanagari bengali gurmukhi gujarati oriya tamil telugu kannada malayalam].freeze
 
     # Match on special Roman characters
-    RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|[aiueoAIUEO]\u0304|[rlRL]\u0323\u0304?|[mhtdMHTD]\u0323|[nN][\u0307\u0303\u0323]|[sS][\u0301\u0323]|[lL]\u0331/
+    RE_IAST_OR_KOLKATA_ONLY = /[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣḻĀĪŪṚṜḶḸĒŌṂḤṄÑṬḌṆŚṢḺ]|
+                               [aiueoAIUEO]\u0304|[rlRL]\u0323\u0304?|
+                               [mhtdMHTD]\u0323|[nN][\u0307\u0303\u0323]|
+                               [sS][\u0301\u0323]|[lL]\u0331/x
 
     # Match on Kolkata-specific Roman characters
     RE_KOLKATA_ONLY = /[ēōĒŌ]|[eoEO]\u0304/

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require "ragabash"
+require "active_support/core_ext/object/deep_dup"
+require "ice_nine"
 
 require "sanscript/version"
 require "sanscript/rust"

@@ -1,18 +1,15 @@
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
+
+# Layout
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 
 # Metrics
 Metrics/AbcSize:
-  Description: >-
-                 A calculated magnitude based on number of assignments,
-                 branches, and conditions.
-  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
-  Enabled: false
-  Max: 20
+  Enabled: true
 
 Metrics/BlockNesting:
-  Description: 'Avoid excessive block nesting'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#three-is-the-number-thou-shalt-count'
   Enabled: true
   Max: 4
 
@@ -21,42 +18,30 @@ Metrics/BlockLength:
     - spec/**/*.rb
 
 Metrics/ClassLength:
-  Description: 'Avoid classes longer than 250 lines of code.'
   Enabled: true
   Max: 250
 
 Metrics/CyclomaticComplexity:
-  Description: >-
-                 A complexity metric that is strongly correlated to the number
-                 of test cases needed to validate a method.
   Enabled: true
   Max: 10
 
 Metrics/LineLength:
-  Description: 'Limit lines to 80 characters.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
-  Enabled: false
+  Enabled: true
+  Max: 120
 
 Metrics/MethodLength:
-  Description: 'Avoid methods longer than 40 lines of code.'
   Enabled: true
   Max: 40
 
 Metrics/ModuleLength:
-  Description: 'Avoid modules longer than 250 lines of code.'
   Enabled: true
   Max: 250
 
 Metrics/ParameterLists:
-  Description: 'Avoid parameter lists longer than three or four parameters.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#too-many-params'
   Enabled: true
 
 Metrics/PerceivedComplexity:
-  Description: >-
-                 A complexity metric geared towards measuring complexity for a
-                 human reader.
-  Enabled: false
+  Enabled: true
 
 # Style
 Style/AsciiComments:
@@ -93,7 +78,10 @@ Style/StringLiterals:
 Style/SymbolArray:
   Enabled: true
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
 
 Style/TrivialAccessors:
