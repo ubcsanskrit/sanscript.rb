@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-require "bundler/gem_tasks"
+begin
+  require "bundler/gem_tasks"
+rescue LoadError
+  nil
+end
 
 require "thermite/tasks"
 Thermite::Tasks.new(optional_rust_extension: true)
