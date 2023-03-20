@@ -2,7 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/sanscript.svg)](https://badge.fury.io/rb/sanscript)
 [![Build Status](https://travis-ci.org/ubcsanskrit/sanscript.rb.svg?branch=master)](https://travis-ci.org/ubcsanskrit/sanscript.rb)
-[![Coverage Status](https://coveralls.io/repos/github/ubcsanskrit/sanscript.rb/badge.svg?branch=master)](https://coveralls.io/github/ubcsanskrit/sanscript.rb?branch=master)
 [![Inline docs](http://inch-ci.org/github/ubcsanskrit/sanscript.rb.svg?branch=master)](http://inch-ci.org/github/ubcsanskrit/sanscript.rb)
 
 This gem is starting off as a mostly-straightforward port of [learnsanskrit.org's Sanscript.js](https://github.com/sanskrit/sanscript.js), and will go from there. It also incorporates transliteration scheme detection based on [learnsanskrit.org's Detect.js](https://github.com/sanskrit/detect.js).

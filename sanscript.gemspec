@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "benchmark-ips", "~> 2.9"
   spec.add_development_dependency "bundler", ">= 1.16", "< 3.0"
-  spec.add_development_dependency "coveralls", "~> 0.8.23"
   spec.add_development_dependency "pry", "~> 0.14"
   spec.add_development_dependency "rake", "~> 13"
   spec.add_development_dependency "rspec", "~> 3.10"
