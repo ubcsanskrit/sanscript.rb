@@ -140,7 +140,7 @@ module Sanscript
     # @option opts [Boolean] :skip_sgml (false) escape SGML-style tags in text string
     # @option opts [Boolean] :syncope (false) activate Hindi-style schwa syncope
     # @return [String] the transliterated string
-    def transliterate(data, from, to, **opts)
+    def transliterate(data, from, to, opts = {})
       from = from.to_sym
       to = to.to_sym
       return data if from == to
